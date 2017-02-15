@@ -241,7 +241,9 @@ function RDXM.WindowDesc:GenFnApplyDataBody()
 end
 function RDXM.WindowDesc:GenFnApplyDataStatusTextSection(pFunc)
 	local str = "RDX.SetStatusText(c.text2, p, RDXG.vis.cStatusText, RDXG.vis.cStatusTextFade); ";
-	str = str .. "if u.incheal > 0 then c.text2:SetText(string.format('+%d', u.incheal)); else ";
+	if pFunc == "Health" then
+		str = str .. "if u.incheal > 0 then c.text2:SetText(string.format('+%d', u.incheal)); else ";
+	end
 
 	if(self.cfg.stext == 1) then -- percentage
 		str = str .. "c.text2:SetText(string.format('%0.0f%%', p*100)); ";
@@ -250,7 +252,7 @@ function RDXM.WindowDesc:GenFnApplyDataStatusTextSection(pFunc)
 	else
 		str = str .. "c.text2:SetText(string.format('-%d', u:Max"..pFunc.."() - u:"..pFunc.."())); ";
 	end
-	str = str .. " end";
+	if pFunc == "Health" then str = str .. " end" end;
 	return str;
 end
 function RDXM.WindowDesc:GenFnApplyDataOnClickSection()
