@@ -1,0 +1,61 @@
+<!--
+VFL_CC_Radio.xml
+VFL
+Venificus' Function Library
+
+XML templates for the Radio Button/Radio Group common controls.
+
+CLASSES:
+  VFLRadioButtonT - Internal template class
+
+	VFLRadioT - An individual radio button, with text label.
+	IDEAL SIZE: (infinity, 16)
+	USAGE: OnShow, call Setup(group, "text"), where group is a VFL.RadioGroup
+-->
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+<Script file="VFL_CC_Radio.lua"/>
+<CheckButton name="VFLRadioButtonT" hidden="false" virtual="true">
+	<Size><AbsDimension x="16" y="16" /></Size>
+	<NormalTexture file="Interface\Buttons\UI-RadioButton">
+		<TexCoords left="0" right="0.25" top="0" bottom="1"/>
+	</NormalTexture>
+	<PushedTexture file="Interface\Buttons\UI-RadioButton">
+		<TexCoords left="0" right="0.25" top="0" bottom="1"/>
+	</PushedTexture>
+	<HighlightTexture file="Interface\Buttons\UI-RadioButton" alphaMode="ADD">
+		<TexCoords left="0.5" right="0.75" top="0" bottom="1"/>
+	</HighlightTexture>
+	<CheckedTexture file="Interface\Buttons\UI-RadioButton">
+		<TexCoords left="0.25" right="0.49" top="0" bottom="1"/>
+	</CheckedTexture>
+	<Scripts>
+		<OnClick>if(this:GetParent().OnClick) then this:GetParent():OnClick(); end</OnClick>
+	</Scripts>
+</CheckButton>
+<Frame name="VFLRadioT" hidden="false" virtual="true">
+	<Frames>
+		<CheckButton name="$parentRad" inherits="VFLRadioButtonT">
+			<Anchors>
+				<Anchor point="LEFT">
+					<Offset><AbsDimension x="3" y="0"/></Offset>
+				</Anchor>
+			</Anchors>
+		</CheckButton>
+	</Frames>
+	<Layers>
+		<Layer level="ARTWORK">
+			<FontString name="$parentTxt" inherits="VFLFontSmall" justifyH="LEFT" justifyV="CENTER">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset><AbsDimension x="20" y="0"/></Offset>
+					</Anchor>
+					<Anchor point="BOTTOMRIGHT"/>
+				</Anchors>
+			</FontString>
+		</Layer>
+	</Layers>
+	<Scripts>
+		<OnLoad>VFL.RadioButton.OnLoad(this);</OnLoad>
+	</Scripts>
+</Frame>
+</Ui>

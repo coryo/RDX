@@ -1,0 +1,281 @@
+<!--
+VFL_CC_Lists.xml
+VFL
+Venificus' Function Library
+
+Common control pieces for list boxes and list entries.
+
+CLASSES:
+
+VFLSelectableT - Internal generic button class for use in standard lists.
+Carries a "selection highlight" texture.
+
+VFLScrollListT - List with a vert scrollbar attached on the right.
+USAGE: Set self.data to a data array containing the list members. Each entry
+should be of the form {text="Text", ...} where the display text is in the text field. OnShow, call Setup().
+-->
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+<Script file="VFL_CC_Lists.lua"/>
+<Button name="VFLSelectableT" virtual="true">
+	<PushedTextOffset><AbsDimension x="0" y="0"/></PushedTextOffset>
+	<ButtonText name="$parentTxt" inherits="VFLFont" justifyH="LEFT"/>		
+	<HighlightTexture file="Interface\QuestFrame\UI-QuestTitleHighlight" alphaMode="ADD"/>
+	<Layers>
+		<Layer level="OVERLAY">
+			<Texture name="$parentIcon" hidden="true">
+				<Size><AbsDimension x="12" y="12"/></Size>
+			</Texture>
+		</Layer>
+		<Layer level="BACKGROUND">
+			<Texture name="$parentSel" setAllPoints="true" hidden="true">
+				<Color r="1" g="1" b="1" a="1"/>
+			</Texture>
+		</Layer>
+	</Layers>
+	<Scripts>
+		<OnClick>
+			if(this.OnClick) then this:OnClick(arg1); end
+		</OnClick>
+		<OnLoad>
+			VFL.FrameCell.Imbue(this); VFL.Selectable.Imbue(this); 
+		</OnLoad>
+	</Scripts>
+</Button>
+<!-- ScrollList -->
+<Frame name="VFLScrollListT" virtual="true">
+	<Frames>
+		<Slider name="$parentSB" inherits="VFLVScrollT" hidden="true">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativePoint="TOPRIGHT">
+					<Offset><AbsDimension x="-16" y="-16"/></Offset>
+				</Anchor>
+				<Anchor point="BOTTOMRIGHT">
+					<Offset><AbsDimension x="0" y="16"/></Offset>
+				</Anchor>
+			</Anchors>
+		</Slider>
+	</Frames>
+	<Scripts>
+		<OnLoad>VFL.ScrollList.Imbue(this);</OnLoad>
+		<OnShow>this:Setup();</OnShow>
+		<OnHide>this.list:Destroy();</OnHide>
+	</Scripts>
+</Frame>
+<!-- EditList -->
+<Frame name="VFLEditListT" inherits="VFLGroupT" virtual="true">
+	<Size><AbsDimension x="130" y="198"/></Size>
+	<Frames>
+		<EditBox name="$parentEdit" inherits="VFLEditT">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentClientArea"/>
+				<Anchor point="BOTTOMRIGHT" relativeTo="$parentClientArea" relativePoint="TOPRIGHT">
+					<Offset><AbsDimension x="0" y="-25"/></Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnEnterPressed>
+					local t = this:GetText();
+					if(t) and (t ~= "") then
+						local l = getglobal(this:GetParent():GetName() .. "List");
+						table.insert(l.list.data, {text=t});
+						l.list:UpdateContent();
+						this:SetText("");
+					end
+				</OnEnterPressed>
+			</Scripts>
+		</EditBox>
+		<Frame name="$parentList" inherits="VFLScrollListT">
+			<Size><AbsDimension x="114" y="128"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentEdit" relativePoint="BOTTOMLEFT">
+					<Offset><AbsDimension x="4" y="0"/></Offset>
+				</Anchor>
+			</Anchors>
+			<Frames>
+				<Button name="$parentL1" inherits="VFLSelectableT"/>
+				<Button name="$parentL2" inherits="VFLSelectableT"/>
+				<Button name="$parentL3" inherits="VFLSelectableT"/>
+				<Button name="$parentL4" inherits="VFLSelectableT"/>
+				<Button name="$parentL5" inherits="VFLSelectableT"/>
+				<Button name="$parentL6" inherits="VFLSelectableT"/>
+				<Button name="$parentL7" inherits="VFLSelectableT"/>
+				<Button name="$parentL8" inherits="VFLSelectableT"/>
+			</Frames>
+		</Frame>
+		<Button name="$parentBClr" inherits="VFLCancelBtnT" text="0">
+			<Size><AbsDimension x="30" y="25"/></Size>
+			<Anchors>
+				<Anchor point="BOTTOMRIGHT" relativeTo="$parentClientArea">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					local l = getglobal(this:GetParent():GetName() .. "List").list;
+					l.data = {}; l.selected = nil;
+					l:UpdateContent();
+				</OnClick>
+			</Scripts>
+		</Button>
+		<Button name="$parentBDel" inherits="VFLBtnT" text="-">
+			<Size><AbsDimension x="30" y="25"/></Size>
+			<Anchors>
+				<Anchor point="RIGHT" relativeTo="$parentBClr" relativePoint="LEFT">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					local l = getglobal(this:GetParent():GetName() .. "List").list;
+					if (l.selected) and (l.data[l.selected]) then
+						table.remove(l.data, l.selected);
+						if not l.data[l.selected] then l.selected = nil; end
+						l:UpdateContent();
+					end
+				</OnClick>
+			</Scripts>
+		</Button>
+		<Button name="$parentBDn" inherits="VFLBtnT" text="Dn">
+			<Size><AbsDimension x="30" y="25"/></Size>
+			<Anchors>
+				<Anchor point="RIGHT" relativeTo="$parentBDel" relativePoint="LEFT">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					local l = getglobal(this:GetParent():GetName() .. "List").list;
+					if (l.selected) and (l.selected &lt; table.getn(l.data)) and (l.data[l.selected]) then
+						local tmp = l.data[l.selected];
+						l.data[l.selected] = l.data[l.selected + 1];
+						l.data[l.selected + 1] = tmp;
+						l.selected = l.selected + 1;
+						l:UpdateContent();
+					end
+				</OnClick>
+			</Scripts>
+		</Button>
+		<Button name="$parentBDup" inherits="VFLBtnT" text="Up">
+			<Size><AbsDimension x="30" y="25"/></Size>
+			<Anchors>
+				<Anchor point="RIGHT" relativeTo="$parentBDn" relativePoint="LEFT">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					local l = getglobal(this:GetParent():GetName() .. "List").list;
+					if (l.selected) and (l.selected &gt; 1) and (l.data[l.selected]) then
+						local tmp = l.data[l.selected];
+						l.data[l.selected] = l.data[l.selected - 1];
+						l.data[l.selected - 1] = tmp;
+						l.selected = l.selected - 1;
+						l:UpdateContent();
+					end
+				</OnClick>
+			</Scripts>
+		</Button>
+	</Frames>
+</Frame>
+<!-- END EditList -->
+<!-- PrioList -->
+<Frame name="VFLPrioListT" inherits="VFLGroupT" virtual="true">
+	<Size><AbsDimension x="130" y="198"/></Size>
+	<Frames>
+		<Frame name="$parentList" inherits="VFLScrollListT">
+			<Size><AbsDimension x="114" y="128"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentClientArea">
+					<Offset><AbsDimension x="0" y="0"/></Offset>
+				</Anchor>
+			</Anchors>
+			<Frames>
+				<Button name="$parentL1" inherits="VFLSelectableT"/>
+				<Button name="$parentL2" inherits="VFLSelectableT"/>
+				<Button name="$parentL3" inherits="VFLSelectableT"/>
+				<Button name="$parentL4" inherits="VFLSelectableT"/>
+				<Button name="$parentL5" inherits="VFLSelectableT"/>
+				<Button name="$parentL6" inherits="VFLSelectableT"/>
+				<Button name="$parentL7" inherits="VFLSelectableT"/>
+				<Button name="$parentL8" inherits="VFLSelectableT"/>
+			</Frames>
+		</Frame>
+		<Button name="$parentBDn" inherits="VFLBtnT" text="Dn">
+			<Size><AbsDimension x="30" y="25"/></Size>
+			<Anchors>
+				<Anchor point="BOTTOMRIGHT">
+					<Offset><AbsDimension x="-5" y="5"/></Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					local l = getglobal(this:GetParent():GetName() .. "List").list;
+					if (l.selected) and (l.selected &lt; table.getn(l.data)) and (l.data[l.selected]) then
+						local tmp = l.data[l.selected];
+						l.data[l.selected] = l.data[l.selected + 1];
+						l.data[l.selected + 1] = tmp;
+						l.selected = l.selected + 1;
+						l:UpdateContent();
+					end
+				</OnClick>
+			</Scripts>
+		</Button>
+		<Button name="$parentBDup" inherits="VFLBtnT" text="Up">
+			<Size><AbsDimension x="30" y="25"/></Size>
+			<Anchors>
+				<Anchor point="RIGHT" relativeTo="$parentBDn" relativePoint="LEFT">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					local l = getglobal(this:GetParent():GetName() .. "List").list;
+					if (l.selected) and (l.selected &gt; 1) and (l.data[l.selected]) then
+						local tmp = l.data[l.selected];
+						l.data[l.selected] = l.data[l.selected - 1];
+						l.data[l.selected - 1] = tmp;
+						l.selected = l.selected - 1;
+						l:UpdateContent();
+					end
+				</OnClick>
+			</Scripts>
+		</Button>
+	</Frames>
+</Frame>
+<!-- End PrioList -->
+<!-- PickList -->
+<Frame name="VFLPickListT" inherits="VFLGroupT" virtual="true">
+	<Size><AbsDimension x="130" y="150"/></Size>
+	<Frames>
+		<Frame name="$parentList" inherits="VFLScrollListT">
+			<Size><AbsDimension x="120" y="128"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentClientArea">
+					<Offset><AbsDimension x="0" y="0"/></Offset>
+				</Anchor>
+			</Anchors>
+			<Frames>
+				<Button name="$parentL1" inherits="VFLSelectableT"/>
+				<Button name="$parentL2" inherits="VFLSelectableT"/>
+				<Button name="$parentL3" inherits="VFLSelectableT"/>
+				<Button name="$parentL4" inherits="VFLSelectableT"/>
+				<Button name="$parentL5" inherits="VFLSelectableT"/>
+				<Button name="$parentL6" inherits="VFLSelectableT"/>
+				<Button name="$parentL7" inherits="VFLSelectableT"/>
+				<Button name="$parentL8" inherits="VFLSelectableT"/>
+			</Frames>
+		</Frame>
+	</Frames>
+</Frame>
+<!-- End PickList -->
+<!-- GENERIC CONTAINER FRAME -->
+<Frame name="VFLContainerT" toplevel="true" parent="UIParent" virtual="true">
+	<Backdrop name="$parentBkd" bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border">
+		<BackgroundInsets>
+			<AbsInset left="4" right="4" top="4" bottom="4" />
+		</BackgroundInsets>
+		<TileSize><AbsValue val="16"/></TileSize>
+		<EdgeSize><AbsValue val="16"/></EdgeSize>
+	</Backdrop>
+</Frame>
+<!-- END GENERIC CONTAINER FRAME -->
+<!--
+	FRAMEPOOLS 
+-->
+
+</Ui>

@@ -1,0 +1,414 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+<!-- TEMPLATE FOR THEMED BACKDROP -->
+<Frame name="VFLBkgT" setAllPoints="true" enableMouse="true" virtual="true">
+	<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+		<BackgroundInsets><AbsInset left="11" right="12" top="12" bottom="11"/></BackgroundInsets>
+		<TileSize><AbsValue val="32"/></TileSize>
+		<EdgeSize><AbsValue val="32"/></EdgeSize>
+	</Backdrop>
+	<Layers>
+		<Layer level="BACKGROUND">
+			<Texture>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset><AbsDimension x="11" y="-12"/></Offset>
+					</Anchor>
+					<Anchor point="BOTTOMRIGHT">
+						<Offset><AbsDimension x="-12" y="11"/></Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="0" g="0" b="0" a="1"/>
+			</Texture>
+		</Layer>
+	</Layers>
+	<Scripts><OnLoad>this:SetFrameLevel(0);</OnLoad></Scripts>
+</Frame>
+<!-- END BACKDROP -->
+<!-- TEMPLATE FOR HIGHLIGHTABLE, SELECTABLE BUTTON -->
+<Button name="VFLHltBtnT" virtual="true">
+	<Layers>
+		<Layer level="BACKGROUND">
+			<Texture name="$parentHlt" file="Interface\QuestFrame\UI-QuestTitleHighlight" alphaMode="ADD" setAllPoints="true" hidden="true"/>
+			<Texture name="$parentSel" setAllPoints="true" hidden="true">
+				<Color r="1.0" g="1.0" b="1.0" a="1.0"/>
+			</Texture>
+		</Layer>
+	</Layers>
+	<Scripts>
+		<OnEnter>getglobal(this:GetName().."Hlt"):Show();</OnEnter>
+		<OnLeave>getglobal(this:GetName().."Hlt"):Hide();</OnLeave>		
+	</Scripts>
+</Button>
+<!-- END TEMPLATE FOR HIGHLIGHTBUTTON -->
+<!-- SCROLL BAR CONTROL TEMPLATE -->
+<Slider name="VFLScrollBarT" inherits="UIPanelScrollBarTemplate" hidden="true" virtual="true">
+	<Scripts>
+		<OnValueChanged>this.onScroll(arg1);</OnValueChanged>
+	</Scripts>
+</Slider>
+<!-- END SCROLL BAR TEMPLATE -->
+<!-- LIST ENTRY TEMPLATE -->
+<Button name="VFLListEntryT" inherits="VFLHltBtnT" virtual="true">
+	<Size><AbsDimension x="110" y="12"/></Size>
+	<NormalText name="$parentNormalText" inherits="GameFontHighlightSmall" justifyH="LEFT"/>
+	<HighlightText name="$parentHighlightText" inherits="GameFontHighlightSmall" justifyH="LEFT"/>
+	<DisabledText name="$parentDisabledText" inherits="GameFontDisableSmall" justifyH="LEFT"/>
+	<Scripts>
+		<OnClick>
+			this.dynaframe.list:onClick(this.dynaframe, arg1);
+		</OnClick>
+	</Scripts>
+</Button>
+<!-- END LIST ENTRY TEMPLATE -->
+<!-- LIST BOX TEMPLATE -->
+<Frame name="VFLListBoxT" virtual="true">
+	<Size><AbsDimension x="149" y="143"/></Size>
+	<Frames>
+		<!-- Scrollbar nubs = 16x16 -->
+		<Slider name="$parentScroll" inherits="VFLScrollBarT"/>
+		<Frame name="$parentBkg" inherits="VFLBkgT" />
+		<Frame name="$parentL">
+			<Anchors>
+				<Anchor point="TOPLEFT">
+					<Offset><AbsDimension x="11" y="-12"/></Offset>
+				</Anchor>
+				<Anchor point="BOTTOMRIGHT">
+					<Offset><AbsDimension x="-28" y="11"/></Offset>
+				</Anchor>
+			</Anchors>
+			<Frames>
+				<Button name="$parentB1" inherits="VFLListEntryT" id="1"/>
+				<Button name="$parentB2" inherits="VFLListEntryT" id="2"/>
+				<Button name="$parentB3" inherits="VFLListEntryT" id="3"/>
+				<Button name="$parentB4" inherits="VFLListEntryT" id="4"/>
+				<Button name="$parentB5" inherits="VFLListEntryT" id="5"/>
+				<Button name="$parentB6" inherits="VFLListEntryT" id="6"/>
+				<Button name="$parentB7" inherits="VFLListEntryT" id="7"/>
+				<Button name="$parentB8" inherits="VFLListEntryT" id="8"/>
+				<Button name="$parentB9" inherits="VFLListEntryT" id="9"/>
+				<Button name="$parentB10" inherits="VFLListEntryT" id="10"/>
+			</Frames>
+		</Frame>
+	</Frames>
+</Frame>
+<!-- END LIST BOX TEMPLATE -->
+<!-- BIG LIST BOX TEMPLATE (20 entries) -->
+<Frame name="VFLBigListBoxT" virtual="true">
+	<Size><AbsDimension x="149" y="263"/></Size>
+	<Frames>
+		<!-- Scrollbar nubs = 16x16 -->
+		<Slider name="$parentScroll" inherits="VFLScrollBarT"/>
+		<Frame name="$parentBkg" inherits="VFLBkgT" />
+		<Frame name="$parentL">
+			<Anchors>
+				<Anchor point="TOPLEFT">
+					<Offset><AbsDimension x="11" y="-12"/></Offset>
+				</Anchor>
+				<Anchor point="BOTTOMRIGHT">
+					<Offset><AbsDimension x="-28" y="11"/></Offset>
+				</Anchor>
+			</Anchors>
+			<Frames>
+				<Button name="$parentB1" inherits="VFLListEntryT" id="1"/>
+				<Button name="$parentB2" inherits="VFLListEntryT" id="2"/>
+				<Button name="$parentB3" inherits="VFLListEntryT" id="3"/>
+				<Button name="$parentB4" inherits="VFLListEntryT" id="4"/>
+				<Button name="$parentB5" inherits="VFLListEntryT" id="5"/>
+				<Button name="$parentB6" inherits="VFLListEntryT" id="6"/>
+				<Button name="$parentB7" inherits="VFLListEntryT" id="7"/>
+				<Button name="$parentB8" inherits="VFLListEntryT" id="8"/>
+				<Button name="$parentB9" inherits="VFLListEntryT" id="9"/>
+				<Button name="$parentB10" inherits="VFLListEntryT" id="10"/>
+				<Button name="$parentB11" inherits="VFLListEntryT" id="11"/>
+				<Button name="$parentB12" inherits="VFLListEntryT" id="12"/>
+				<Button name="$parentB13" inherits="VFLListEntryT" id="13"/>
+				<Button name="$parentB14" inherits="VFLListEntryT" id="14"/>
+				<Button name="$parentB15" inherits="VFLListEntryT" id="15"/>
+				<Button name="$parentB16" inherits="VFLListEntryT" id="16"/>
+				<Button name="$parentB17" inherits="VFLListEntryT" id="17"/>
+				<Button name="$parentB18" inherits="VFLListEntryT" id="18"/>
+				<Button name="$parentB19" inherits="VFLListEntryT" id="19"/>
+				<Button name="$parentB20" inherits="VFLListEntryT" id="20"/>
+			</Frames>
+		</Frame>
+	</Frames>
+</Frame>
+<!-- END LIST BOX TEMPLATE -->
+<!-- POPUP MENU TEMPLATE -->
+<Frame name="VFLPopMenuT" virtual="true">
+	<Size><AbsDimension x="133" y="143"/></Size>
+	<Frames>
+		<Frame name="$parentBkg" inherits="VFLBkgT" />
+		<Frame name="$parentL">
+			<Anchors>
+				<Anchor point="TOPLEFT">
+					<Offset><AbsDimension x="11" y="-12"/></Offset>
+				</Anchor>
+			</Anchors>
+			<Frames>
+				<Button name="$parentB1" inherits="VFLListEntryT" id="1"/>
+				<Button name="$parentB2" inherits="VFLListEntryT" id="2"/>
+				<Button name="$parentB3" inherits="VFLListEntryT" id="3"/>
+				<Button name="$parentB4" inherits="VFLListEntryT" id="4"/>
+				<Button name="$parentB5" inherits="VFLListEntryT" id="5"/>
+				<Button name="$parentB6" inherits="VFLListEntryT" id="6"/>
+				<Button name="$parentB7" inherits="VFLListEntryT" id="7"/>
+				<Button name="$parentB8" inherits="VFLListEntryT" id="8"/>
+				<Button name="$parentB9" inherits="VFLListEntryT" id="9"/>
+				<Button name="$parentB10" inherits="VFLListEntryT" id="10"/>
+				<Button name="$parentB11" inherits="VFLListEntryT" id="11"/>
+				<Button name="$parentB12" inherits="VFLListEntryT" id="12"/>
+				<Button name="$parentB13" inherits="VFLListEntryT" id="13"/>
+				<Button name="$parentB14" inherits="VFLListEntryT" id="14"/>
+				<Button name="$parentB15" inherits="VFLListEntryT" id="15"/>
+				<Button name="$parentB16" inherits="VFLListEntryT" id="16"/>
+				<Button name="$parentB17" inherits="VFLListEntryT" id="17"/>
+				<Button name="$parentB18" inherits="VFLListEntryT" id="18"/>
+				<Button name="$parentB19" inherits="VFLListEntryT" id="19"/>
+				<Button name="$parentB20" inherits="VFLListEntryT" id="20"/>
+			</Frames>
+		</Frame>
+	</Frames>
+</Frame>
+<!-- END POPUP MENU TEMPLATE -->
+
+<!-- CHECKBOX TEMPLATE -->
+<CheckButton name="VFLCheckButtonT" hidden="false" virtual="true">
+	<Size><AbsDimension x="22" y="22" /></Size>
+	<NormalTexture file="Interface\Buttons\UI-CheckBox-Up" />
+	<PushedTexture file="Interface\Buttons\UI-CheckBox-Down" />
+	<HighlightTexture file="Interface\Buttons\UI-CheckBox-Highlight" alphaMode="ADD" />
+	<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
+	<CheckedDisabledTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
+	<DisabledTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
+	<Scripts>
+		<OnClick>if(this:GetParent().onClick) then this:GetParent().onClick(this:GetChecked()); end</OnClick>
+	</Scripts>
+</CheckButton>
+<Frame name="VFLCheckT" hidden="false" virtual="true">
+	<Size><AbsDimension x="124" y="24"/></Size>
+	<Frames>
+		<CheckButton name="$parentChk" inherits="VFLCheckButtonT">
+			<Anchors><Anchor point="LEFT"/></Anchors>
+		</CheckButton>
+	</Frames>
+	<Layers>
+		<Layer level="ARTWORK">
+			<FontString name="$parentTxt" inherits="GameFontNormalSmall" justifyH="LEFT" justifyV="CENTER">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset><AbsDimension x="22" y="0"/></Offset>
+					</Anchor>
+					<Anchor point="BOTTOMRIGHT"/>
+				</Anchors>
+			</FontString>
+		</Layer>
+	</Layers>
+</Frame>
+<!-- END CHECKBOX TEMPLATE -->
+<!-- SEPARATOR BAR TEMPLATE -->
+<Frame name="VFLSeparatorT" hidden="false" virtual="true">
+	<Size><AbsDimension x="200" y="15" /></Size>
+	<Layers>
+		<Layer level="ARTWORK">
+			<FontString name="$parentTxt" inherits="GameFontNormal" text="Hi" justifyV="CENTER">
+				<Anchors>
+					<Anchor point="LEFT">
+						<Offset><AbsDimension x="1" y="0"/></Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="1.0" g="1.0" b="1.0" a="1.0" />
+			</FontString>
+		</Layer>
+		<Layer level="BACKGROUND">
+			<Texture name="$parentBkg" alphaMode="ADD">
+				<Color r="0" g="0" b="0.9" a="1"/>
+				<Gradient orientation="HORIZONTAL">
+					<MinColor r="0" g="0" b="0.9" a="1"/>
+					<MaxColor r="0" g="0" b="0.9" a="0"/>
+				</Gradient>
+			</Texture>
+		</Layer>
+	</Layers>
+</Frame>
+<!-- END SEPARATOR BAR TEMPLATE -->
+<!-- INPUT BOX TEMPLATE -->
+<EditBox name="VFLInputT" letters="255" historyLines="0" autoFocus="true" virtual="true" hidden="false">
+	<Layers>
+  	<Layer level="BACKGROUND">
+ 	  	<Texture name="$parentBackground">
+				<Color r=".4" g=".4" b=".4" a="1"/>
+			</Texture>
+		</Layer>
+	</Layers>
+	<FontString inherits="GameFontNormal">
+		<Color r="1" g="1" b="1" a="1"/>
+	</FontString>
+	<Scripts>
+		<OnEscapePressed>this:ClearFocus();</OnEscapePressed>
+	  <OnClick>this:SetFocus();</OnClick>
+	</Scripts>
+</EditBox>
+<!-- END INPUT BOX TEMPLATE -->
+<!-- LABEL TEMPLATE -->
+<Frame name="VFLLabelT" hidden="false" virtual="true">
+	<Layers>
+		<Layer level="FOREGROUND">
+			<FontString name="$parentTxt" inherits="GameFontNormalSmall" justifyV="CENTER" justifyH="LEFT">
+				<Anchors>
+					<Anchor point="TOPLEFT"/>
+					<Anchor point="BOTTOMRIGHT"/>
+				</Anchors>
+			</FontString>
+		</Layer>
+	</Layers>
+</Frame>
+<!-- END LABEL TEMPLATE -->
+<!-- COLOR SWATCH TEMPLATE -->
+<Button name="VFLColorSwatchT" virtual="true">
+	<Size><AbsDimension x="16" y="16"/></Size>
+	<NormalTexture name="$parent_SwatchTexture" file="Interface\ChatFrame\ChatFrameColorSwatch"/>
+	<Layers>
+		<Layer level="BACKGROUND">
+			<Texture name="$parent_BorderTexture">
+				<Size><AbsDimension x="14" y="14"/></Size>
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset><AbsDimension x="0" y="0"/></Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="1.0" g="1.0" b="1.0"/>
+			</Texture>
+		</Layer>
+	</Layers>
+	<Scripts>
+		<OnClick>
+			VFL.UI.Swatch_Click();
+			ColorPickerFrame:Show();
+		</OnClick>
+		<OnEnter>
+			getglobal(this:GetName().."_BorderTexture"):SetVertexColor(NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b);
+		</OnEnter>
+		<OnLeave>
+			getglobal(this:GetName().."_BorderTexture"):SetVertexColor(this.r, this.g, this.b);
+		</OnLeave>
+		<OnLoad>
+			this.SetColor = VFL.UI.Swatch_SetColor;
+			this:SetColor(1,1,1);
+		</OnLoad>
+	</Scripts>
+</Button>
+<!-- END COLOR SWATCH TEMPLATE -->
+<!-- DROPDOWN LIST BOX TEMPLATE -->
+<Frame name="VFLDropDownT" virtual="true">
+	<Layers>
+		<Layer level="BACKGROUND">
+			<Texture setAllPoints="true">
+				<Color r="0.4" g="0.4" b="0.4" a="0.75"/>
+			</Texture>
+		</Layer>
+		<Layer level="ARTWORK">
+			<FontString name="$parentTxt" inherits="GameFontHighlightSmall" justifyH="LEFT" text="">
+				<Anchors>
+					<Anchor point="TOPLEFT"/>
+					<Anchor point="BOTTOMRIGHT"/>
+				</Anchors>
+			</FontString>
+		</Layer>
+	</Layers>
+	<Frames>
+		<Button name="$parentBtn" inherits="UIPanelButtonTemplate" text=" ">
+			<Size><AbsDimension x="18" y="18"/></Size>
+			<Anchors>
+				<Anchor point="TOPRIGHT"/>
+			</Anchors>
+			<Scripts>
+				<OnClick>VFL.UI.DropDown_Toggle(this:GetParent());</OnClick>
+			</Scripts>
+		</Button>
+	</Frames>
+	<Scripts>
+		<OnLoad>
+			this.textBox = getglobal(this:GetName() .. "Txt");
+			this.Update = VFL.UI.DropDown_Update;
+			this.Select = VFL.UI.DropDown_Select;
+		</OnLoad>
+	</Scripts>
+</Frame>
+<!-- END DROPDOWN LIST BOX TEMPLATE -->
+<!-- The VFL message box -->
+<Frame name="VFLMsgBox" toplevel="true" frameStrata="DIALOG" parent="UIParent" hidden="true">
+	<Size><AbsDimension x="300" y="90"/></Size>
+	<Anchors><Anchor point="CENTER"/></Anchors>
+	<Frames>
+		<Frame name="$parentBkg" inherits="VFLBkgT"/>
+		<Frame name="$parentLbl" inherits="VFLLabelT">
+			<Size><AbsDimension x="260" y="18"/></Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset><AbsDimension x="0" y="21"/></Offset>
+				</Anchor>
+			</Anchors>
+		</Frame>
+		<EditBox name="$parentEdit" letters="1024" historyLines="0">
+			<Size><AbsDimension x="260" y="18"/></Size>
+			<Anchors>
+				<Anchor point="CENTER"/>
+			</Anchors>
+			<Layers>
+		  	<Layer level="BACKGROUND">
+	  	  	<Texture name="$parentBackground">
+						<Color r="0" g="0" b="0" a="1"/>
+					</Texture>
+				</Layer>
+			</Layers>
+			<FontString inherits="GameFontNormal">
+				<Color r="1" g="1" b="1" a="1"/>
+			</FontString>s
+		</EditBox>
+		<Button name="$parentOK" inherits="UIPanelButtonTemplate" text="OK">
+			<Size><AbsDimension x="65" y="20"/></Size>
+			<Anchors>
+				<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOM">
+					<Offset><AbsDimension x="0" y="12"/></Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					this:GetParent():Hide();
+					if(this:GetParent().callback) then
+						this:GetParent().callback(true, getglobal(this:GetParent():GetName().."Edit"):GetText());
+					end
+					this:GetParent().callback = nil;
+				</OnClick>
+			</Scripts>
+		</Button>
+		<Button name="$parentCancel" inherits="UIPanelButtonTemplate" text="Cancel">
+			<Size><AbsDimension x="65" y="20"/></Size>
+			<Anchors>
+				<Anchor point="BOTTOMLEFT" relativePoint="BOTTOM">
+					<Offset><AbsDimension x="0" y="12"/></Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					this:GetParent():Hide();
+					if(this:GetParent().callback) then
+						this:GetParent().callback(false, "");
+					end
+					this:GetParent().callback = nil;
+				</OnClick>
+			</Scripts>
+		</Button>
+	</Frames>
+</Frame>
+<!-- End message box -->
+<!-- DYNA MENUS -->
+<Frame name="VP1" toplevel="true" frameStrata="DIALOG" inherits="VFLPopMenuT" hidden="true" id="1" parent="UIParent"/>
+<Frame name="VP2" toplevel="true" frameStrata="DIALOG" inherits="VFLPopMenuT" hidden="true" id="2" parent="UIParent"/>
+<Frame name="VP3" toplevel="true" frameStrata="DIALOG" inherits="VFLPopMenuT" hidden="true" id="3" parent="UIParent"/>
+<Frame name="VDD" toplevel="true" frameStrata="DIALOG" inherits="VFLListBoxT" hidden="true" id="3" parent="UIParent"/>
+<!-- END DYNA MENUS/BOXES -->
+<!-- scripts -->
+<Script file="VFL_UI.lua"/>
+</Ui>

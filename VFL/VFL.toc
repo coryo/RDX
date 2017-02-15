@@ -1,0 +1,7 @@
+## Interface: 11200
+## Title: VFL
+## Notes: VFL is a set of reusable UI elements, objects, and functions designed to accelerate UI mod development.
+## Author: Bill Johnson
+## Version: 6
+## SavedVariables: VFLModuleData, VFLConfig
+VFL.xml

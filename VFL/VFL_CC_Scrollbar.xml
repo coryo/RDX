@@ -1,0 +1,157 @@
+<!--
+VFL_CC_Scrollbar.xml
+VFL
+Venificus' Function Library
+
+Reusable scrollbar controls with a theme matching the rest of the VFL controls.
+-->
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+<Button name="VFLUpBtnT" virtual="true">
+	<Size><AbsDimension x="16" y="16"/></Size>
+	<NormalTexture file="Interface\Addons\VFL\Skin\sb_up"/>
+	<PushedTexture file="Interface\Addons\VFL\Skin\sb_up_pressed"/>
+	<DisabledTexture file="Interface\Addons\VFL\Skin\sb_up_disabled"/>
+	<HighlightTexture file="Interface\Addons\VFL\Skin\sb_up_hlt" alphaMode="ADD"/>
+</Button>
+<Button name="VFLDownBtnT" virtual="true">
+	<Size><AbsDimension x="16" y="16"/></Size>
+	<NormalTexture file="Interface\Addons\VFL\Skin\sb_down"/>
+	<PushedTexture file="Interface\Addons\VFL\Skin\sb_down_pressed"/>
+	<DisabledTexture file="Interface\Addons\VFL\Skin\sb_down_disabled"/>
+	<HighlightTexture file="Interface\Addons\VFL\Skin\sb_down_hlt" alphaMode="ADD"/>
+</Button>
+<Button name="VFLRightBtnT" virtual="true">
+	<Size><AbsDimension x="16" y="16"/></Size>
+	<NormalTexture file="Interface\Addons\VFL\Skin\sb_right"/>
+</Button>
+<Slider name="VFLVScrollT" orientation="VERTICAL" virtual="true">
+	<Size><AbsDimension x="16" y="0"/></Size>
+	<Backdrop bgFile="Interface\Addons\VFL\Skin\sb_vgutter" tile="true">
+		<TileSize><AbsValue val="16"/></TileSize>
+		<BackgroundInsets>
+			<AbsInset left="1" right="0" top="0" bottom="0"/>
+		</BackgroundInsets>
+	</Backdrop>
+	<Frames>
+		<Button name="$parentScrollUpButton" inherits="VFLUpBtnT">
+			<Anchors><Anchor point="BOTTOM" relativePoint="TOP"/></Anchors>
+			<Scripts>
+				<OnClick>
+					local parent = this:GetParent();
+					parent:SetValue(parent:GetValue() - (parent:GetHeight() / 2));
+					PlaySound("UChatScrollButton");
+				</OnClick>
+			</Scripts>
+		</Button>
+		<Button name="$parentScrollDownButton" inherits="VFLDownBtnT">
+			<Anchors><Anchor point="TOP" relativePoint="BOTTOM"/></Anchors>
+			<Scripts>
+				<OnClick>
+					local parent = this:GetParent();
+					parent:SetValue(parent:GetValue() + (parent:GetHeight() / 2));
+					PlaySound("UChatScrollButton");
+				</OnClick>
+			</Scripts>
+		</Button>
+	</Frames>
+	<ThumbTexture name="$parentNub" file="Interface\Addons\VFL\Skin\sb_nub">
+		<Size><AbsDimension x="16" y="16"/></Size>
+	</ThumbTexture>
+	<Scripts>
+		<OnLoad>
+			this.btnReduce = getglobal(this:GetName().."ScrollUpButton");
+			this.btnIncrease = getglobal(this:GetName().."ScrollDownButton");
+		</OnLoad>
+		<OnValueChanged>
+			VFL.CC.Scroll_DisableBtns(this);
+			if(this.OnScroll) then this.OnScroll(arg1); end
+			local p = this:GetParent();
+			if(p and p.SetVerticalScroll) then
+				p:SetVerticalScroll(arg1);
+			end
+		</OnValueChanged>
+	</Scripts>
+</Slider>
+<!-- SCROLLFRAME -->
+<ScrollFrame name="VFLScrollFrameT" virtual="true">
+	<Frames>
+		<Slider name="$parentScrollBar" inherits="VFLVScrollT">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativePoint="TOPRIGHT">
+					<Offset><AbsDimension x="0" y="-16"/></Offset>
+				</Anchor>
+				<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT">
+					<Offset><AbsDimension x="0" y="16"/></Offset>
+				</Anchor>
+			</Anchors>
+		</Slider>
+	</Frames>
+	<Scripts>
+		<OnLoad>
+			ScrollFrame_OnLoad();
+		</OnLoad>
+		<OnScrollRangeChanged>
+			VFL.CC.Scroll_RangeChanged(getglobal(this:GetName().."ScrollBar"), arg2);
+		</OnScrollRangeChanged>
+		<OnVerticalScroll>
+			local scrollbar = getglobal(this:GetName().."ScrollBar");
+			scrollbar:SetValue(arg1);
+			VFL.CC.Scroll_DisableBtns(scrollbar);
+		</OnVerticalScroll>
+		<OnMouseWheel>
+			ScrollFrameTemplate_OnMouseWheel(arg1);
+		</OnMouseWheel>
+	</Scripts>
+</ScrollFrame>
+<!-- SLIDER TEMPLATE -->
+<Slider name="VFLSliderT" orientation="HORIZONTAL" virtual="true">
+	<Size><AbsDimension x="100" y="17"/></Size>
+	<Backdrop bgFile="Interface\Addons\VFL\Skin\sb_hgutter" tile="true">
+		<TileSize><AbsValue val="16"/></TileSize>
+		<BackgroundInsets>
+			<AbsInset left="1" right="0" top="0" bottom="0"/>
+		</BackgroundInsets>
+	</Backdrop>
+	<Layers>
+		<Layer level="ARTWORK">
+<!--
+			<FontString name="$parentTxt" inherits="GameFontNormalSmall">
+				<Anchors><Anchor point="BOTTOM" relativePoint="TOP"/></Anchors>
+			</FontString>
+-->
+			<FontString name="$parentValTxt" inherits="GameFontNormalSmall">
+				<Color r=".4" g=".6" b="1" a="1" />
+				<Anchors>
+					<Anchor point="BOTTOM" relativePoint="TOP">
+						<Offset><AbsDimension x="2" y="0" /></Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString inherits="GameFontHighlightSmall" text="LOW">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT">
+						<Offset><AbsDimension x="2" y="3" /></Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString inherits="GameFontHighlightSmall" text="HIGH">
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativePoint="BOTTOMRIGHT">
+						<Offset><AbsDimension x="-2" y="3" /></Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+		</Layer>
+	</Layers>
+	<ThumbTexture name="$parentNub" file="Interface\Addons\VFL\Skin\sb_nub">
+		<Size><AbsDimension x="16" y="16"/></Size>
+	</ThumbTexture>
+	<Scripts>
+		<OnValueChanged>
+			getglobal(this:GetName().."ValTxt"):SetText(string.format("%1.2f",arg1));
+			if(this.OnSlide) then this:OnSlide(arg1); end
+		</OnValueChanged>
+	</Scripts>
+</Slider>
+<!-- END SLIDER TEMPLATE -->
+</Ui>

@@ -1,0 +1,103 @@
+<!--
+VFL.xml
+VFL - Venificus' Function Library
+(C)2005-2006 Bill Johnson (Venificus of Eredar server)
+
+Master XML manifest for VFL.
+-->
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+<!--
+VFL orphan frame.
+Stores all "orphaned" UI objects that require a parent frame.
+-->
+<Frame name="VFLOrphan" hidden="true"/>
+<!-- 
+VFL root frame.
+Serves as the main processing hub for WoW events for all VFL mods.
+-->
+<Frame name="VFLRoot" hidden="false">
+	<Scripts>
+		<OnUpdate>VFL_OnUpdate(arg1);</OnUpdate>
+	</Scripts>
+</Frame>
+<!-- FONTS -->
+<Font name="VFLFontObject" font="Interface\Addons\VFL\Fonts\framd.ttf" virtual="true">
+	<FontHeight><AbsValue val="12"/></FontHeight>
+	<Color r="1.0" g="1.0" b="1.0"/>
+</Font>
+<FontString name="VFLFont" inherits="MasterFont" font="Interface\Addons\VFL\Fonts\framd.ttf" virtual="true">
+	<FontHeight><AbsValue val="12"/></FontHeight>
+	<Color r="1.0" g="1.0" b="1.0"/>
+</FontString>
+<FontString name="VFLFontSmall" inherits="MasterFont" font="Interface\Addons\VFL\Fonts\framd.ttf" virtual="true">
+	<FontHeight><AbsValue val="10"/></FontHeight>
+	<Color r="1.0" g="1.0" b="1.0"/>
+</FontString>
+<FontString name="VFLFontMed" inherits="MasterFont" font="Interface\Addons\VFL\Fonts\framd.ttf" virtual="true">
+	<FontHeight><AbsValue val="11"/></FontHeight>
+	<Color r="1.0" g="1.0" b="1.0"/>
+</FontString>
+<FontString name="VFLFont2" inherits="MasterFont" font="Interface\Addons\VFL\Fonts\bs.ttf" virtual="true">
+	<FontHeight><AbsValue val="12"/></FontHeight>
+	<Color r="1.0" g="1.0" b="1.0"/>
+</FontString>
+<!-- END FONTS -->
+<GameTooltip name="VFLTip" inherits="GameTooltipTemplate">
+</GameTooltip>
+<!-- *********** KERNEL ************** -->
+<Script file="Kernel.lua"/>
+<!-- Preloadable data structures and libraries -->
+<Script file="Interface\Addons\VFL\DataStructures\Errors.lua"/>
+<Script file="Interface\Addons\VFL\DataStructures\Recycler.lua"/>
+<Script file="Primitives.lua"/>
+<Script file="Interface\Addons\VFL\DataStructures\Literator.lua"/>
+<Script file="DispatchTable.lua"/>
+
+<!-- VFL library creation -->
+<Script file="VFL.lua"/>
+<!-- Postloadable data structures and libraries -->
+<Script file="Pool.lua"/>
+<Script file="Time.lua"/>
+
+<!-- *********************** UI ************************** -->
+<!-- VFL UI core -->
+<Script file="Interface\Addons\VFL\UI\EscapeHandler.lua"/>
+<Script file="Interface\Addons\VFL\UI\Core.lua"/>
+<Script file="Interface\Addons\VFL\Skin\Fonts.lua"/>
+<Script file="Interface\Addons\VFL\UI\Grid.lua"/>
+<!-- Frame classes -->
+<Script file="Interface\Addons\VFL\UI\FrameClasses\List.lua"/>
+<Script file="Interface\Addons\VFL\UI\FrameClasses\Button.lua"/>
+<Script file="Interface\Addons\VFL\UI\FrameClasses\Edit.lua"/>
+<Script file="Interface\Addons\VFL\UI\FrameClasses\Scroll.lua"/>
+<Script file="Interface\Addons\VFL\UI\FrameClasses\Selectable.lua"/>
+<Script file="Interface\Addons\VFL\UI\FrameClasses\Window.lua"/>
+<Script file="Interface\Addons\VFL\UI\FrameClasses\TabBar.lua"/>
+<Script file="Interface\Addons\VFL\UI\FrameClasses\TabBox.lua"/>
+<Script file="Interface\Addons\VFL\UI\FrameClasses\Dropdown.lua"/>
+<Script file="Interface\Addons\VFL\UI\FrameClasses\GroupBox.lua"/>
+<!-- Higher order objects -->
+<Script file="Interface\Addons\VFL\UI\MessageBox.lua"/>
+<Script file="Interface\Addons\VFL\UI\DragDrop.lua"/>
+<Script file="Interface\Addons\VFL\UI\PopupMenu.lua"/>
+<Script file="Interface\Addons\VFL\UI\Shortcuts.lua"/>
+
+<!-- The VFL config interface -->
+<Script file="ConfigInterface.lua"/>
+
+<!-- *********************** GAME RELATED ************************** -->
+<Script file="Interface\Addons\VFL\Spells\Spells.lua"/>
+<!-- class metadata -->
+<Script file="Interface\Addons\VFL\Metadata\Metadata_Warlock.lua"/>
+
+<Script file="VFL_Deque.lua"/>
+<Script file="VFL_Signal.lua"/>
+<Script file="IntervalTree.lua"/>
+
+<Include file="VFL_CC.xml"/>
+<Script file="VFL_WoWItems.lua"/>
+<Include file="VFL_CC_ItemLink.xml"/>
+<Script file="VFL_Init.lua"/>
+
+<Script file="VFL_PopupFix.lua"/>
+</Ui>

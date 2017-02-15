@@ -1,0 +1,54 @@
+<!--
+VFL_CC_Checkbox.xml
+VFL
+Venificus' Function Library
+
+XML templates for a checkbox control with an attached text field.
+
+CLASSES:
+  VFLChkBtnT - Internal template class for checkmark
+
+	VFLChkT - Checkbox.
+	IDEAL SIZE: (infinity, 16)
+	USAGE: OnShow, call Setup("text")
+-->
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+<CheckButton name="VFLChkBtnT" hidden="false" virtual="true">
+	<Size><AbsDimension x="19" y="19" /></Size>
+	<NormalTexture file="Interface\Buttons\UI-CheckBox-Up" />
+	<PushedTexture file="Interface\Buttons\UI-CheckBox-Down" />
+	<HighlightTexture file="Interface\Buttons\UI-CheckBox-Highlight" alphaMode="ADD" />
+	<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
+	<CheckedDisabledTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
+	<DisabledTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
+	<Scripts>
+		<OnClick>if(this:GetParent().onClick) then this:GetParent().onClick(this:GetChecked()); end</OnClick>
+	</Scripts>
+</CheckButton>
+<Frame name="VFLChkT" hidden="false" virtual="true">
+	<Frames>
+		<CheckButton name="$parentChk" inherits="VFLChkBtnT">
+			<Anchors>
+				<Anchor point="LEFT">
+					<Offset><AbsDimension x="2" y="-1"/></Offset>
+				</Anchor>
+			</Anchors>
+		</CheckButton>
+	</Frames>
+	<Layers>
+		<Layer level="ARTWORK">
+			<FontString name="$parentTxt" inherits="VFLFontSmall" justifyH="LEFT" justifyV="CENTER">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset><AbsDimension x="20" y="0"/></Offset>
+					</Anchor>
+					<Anchor point="BOTTOMRIGHT"/>
+				</Anchors>
+			</FontString>
+		</Layer>
+	</Layers>
+	<Scripts>
+		<OnLoad>VFL.CC.Chk_OnLoad(this);</OnLoad>
+	</Scripts>
+</Frame>
+</Ui>

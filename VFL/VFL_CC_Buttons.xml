@@ -1,0 +1,79 @@
+<!--
+VFL_CC_Buttons.xml
+VFL
+Venificus' Function Library
+
+XML templates for themed buttons.
+
+CLASSES:
+	VFLHltTexT - Internal texture for highlighting
+
+	VFLBtnT - Themed button. Ideal size: (inf,25)
+	
+	VFLOKBtnT - Button with additional graphic effects, designed to be an "OK" button
+	
+	VFLCancelBtnT - Button with additional graphic effects, designed to be a "Cancel" button.
+
+-->
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+<Texture name="VFLHltTexT" alphaMode="ADD" virtual="true">
+	<Anchors>
+		<Anchor point="TOPLEFT">
+			<Offset><AbsDimension x="4" y="-4"/></Offset>
+		</Anchor>
+		<Anchor point="BOTTOMRIGHT">
+			<Offset><AbsDimension x="-4" y="4"/></Offset>
+		</Anchor>
+	</Anchors>
+	<Color r="1" g="1" b="1" a="1"/>
+</Texture>
+<Button name="VFLBtnT" virtual="true">
+	<Backdrop name="$parentBkd" edgeFile="Interface\Tooltips\UI-Tooltip-Border">
+		<BackgroundInsets>
+			<AbsInset left="4" right="4" top="4" bottom="4" />
+		</BackgroundInsets>
+		<EdgeSize><AbsValue val="16"/></EdgeSize>
+	</Backdrop>
+	<Layers>
+		<Layer level="BACKGROUND">
+			<Texture name="$parentBkg">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset><AbsDimension x="4" y="-4"/></Offset>
+					</Anchor>
+					<Anchor point="BOTTOMRIGHT">
+						<Offset><AbsDimension x="-4" y="4"/></Offset>
+					</Anchor>
+				</Anchors>
+			<Color r="1" g="1" b="1" a="0.1"/>
+			</Texture>
+		</Layer>
+	</Layers>
+	<NormalFont inherits="VFLFontObject"/>
+	<PushedTextOffset><AbsDimension x="0" y="0"/></PushedTextOffset>
+	<NormalTexture>
+		<Color r="1" g="1" b="1" a="0"/>
+	</NormalTexture>
+	<DisabledTexture inherits="VFLHltTexT" alphaMode="BLEND">
+		<Color r="0.5" g="0.5" b="0.5" a="1"/>
+	</DisabledTexture>
+	<HighlightTexture inherits="VFLHltTexT">
+		<Color r="1" g="1" b="1" a="0.2"/>
+	</HighlightTexture>
+	<PushedTexture inherits="VFLHltTexT">
+		<Color r="1" g="1" b="1" a="0.4"/>
+	</PushedTexture>
+</Button>
+<Button name="VFLOKBtnT" inherits="VFLBtnT" virtual="true">
+	<HighlightFont inherits="VFLFontObject">
+		<Color r="0" g="0.95" b="0"/>
+	</HighlightFont>
+	<Scripts><OnClick>if this.OnClick then this:OnClick(); end</OnClick></Scripts>
+</Button>
+<Button name="VFLCancelBtnT" inherits="VFLBtnT" virtual="true">
+	<HighlightFont inherits="VFLFontObject">
+		<Color r="0.95" g="0" b="0"/>
+	</HighlightFont>
+	<Scripts><OnClick>if this.OnClick then this:OnClick(); end</OnClick></Scripts>
+</Button>
+</Ui>

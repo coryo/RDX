@@ -1,0 +1,210 @@
+<!--
+VFL_CC.xml
+VFL
+Venificus' Function Library
+
+Reusable components for consistent UI design.
+-->
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+<!-- PRIMITIVE CLICKABLE TEMPALTE -->
+<Button name="VFLClickableT" virtual="true">
+	<Scripts><OnClick>if(this.OnClick) then this:OnClick(arg1); end</OnClick></Scripts>
+</Button>
+<!-- END PRIM CLICK TEMPALTE -->	
+<Script file="VFL_CC.lua"/>
+<Include file="VFL_CC_Static.xml"/>	
+<Include file="VFL_CC_Buttons.xml"/>	
+<Include file="VFL_CC_Checkbox.xml"/>
+<Include file="VFL_CC_Radio.xml"/>
+<Include file="VFL_CC_Scrollbar.xml"/>
+<Script file="VFL_CC_Grid.lua"/>
+<Include file="VFL_CC_Lists.xml"/>
+<!-- ESCAPE MONITOR FRAME -->
+<Frame name="VFLEscapeMonitor" hidden="true">
+	<Scripts>
+		<OnHide>VFL.Escape();</OnHide>
+		<OnLoad>table.insert(UISpecialFrames, "VFLEscapeMonitor");</OnLoad>
+	</Scripts>
+</Frame>
+<!-- END ESCAPE MONITOR FRAME -->
+<Script file="VFL_CC_Init.lua"/>
+<!-- WINDOW PROTOTYPE:
+	TITLE BAR (Height 24)	
+-->
+<Frame name="VFLWinT" toplevel="true" parent="UIParent" virtual="true">
+	<Backdrop name="$parentBkd" bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border">
+		<BackgroundInsets>
+			<AbsInset left="4" right="4" top="4" bottom="4" />
+		</BackgroundInsets>
+		<TileSize><AbsValue val="16"/></TileSize>
+		<EdgeSize><AbsValue val="16"/></EdgeSize>
+	</Backdrop>
+	<Layers>
+		<Layer level="ARTWORK">
+			<Texture name="$parentTitleD1" file="Interface\TradeSkillFrame\UI-TradeSkill-SkillBorder">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset><AbsDimension x="4" y="-20"/></Offset>
+					</Anchor>
+					<Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT">
+						<Offset><AbsDimension x="-4" y="-28"/></Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="0.1" right="1.0" top="0" bottom="0.25"/>
+			</Texture>
+			<Texture name="$parentTitleBkg">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset><AbsDimension x="5" y="-5"/></Offset>
+					</Anchor>
+					<Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT">
+						<Offset><AbsDimension x="-5" y="-24"/></Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="1" g="1" b="1" a="1"/>
+				<Gradient orientation="HORIZONTAL">
+					<MinColor r="1" g="1" b="1" a="1"/>
+					<MaxColor r="0.1" g="0.1" b="0.1" a="1"/>
+				</Gradient>
+			</Texture>
+		</Layer>
+	</Layers>
+</Frame>
+<Frame name="VFLTitledWinT" inherits="VFLWinT" virtual="true">
+	<Frames>
+		<Frame name="$parentTitle" inherits="VFLStaticT">
+			<Anchors>
+				<Anchor point="TOPLEFT">
+					<Offset><AbsDimension x="8" y="-5"/></Offset>
+				</Anchor>
+				<Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT">
+					<Offset><AbsDimension x="-5" y="-25"/></Offset>
+				</Anchor>
+			</Anchors>
+		</Frame>
+	</Frames>
+</Frame>
+<!-- END WINDOW PROTOTYPE-->
+<!-- EDITBOX TEMPLATE [Ideal size: (inf, 25)]-->
+<EditBox name="VFLEditT" historyLines="0" autoFocus="false" hidden="false" virtual="true">
+	<Backdrop name="$parentBkd" edgeFile="Interface\Tooltips\UI-Tooltip-Border">
+		<BackgroundInsets>
+			<AbsInset left="4" right="4" top="4" bottom="4" />
+		</BackgroundInsets>
+		<EdgeSize><AbsValue val="16"/></EdgeSize>
+	</Backdrop>
+	<Layers>
+		<Layer level="BACKGROUND">
+			<Texture name="$parentBkg">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset><AbsDimension x="4" y="-4"/></Offset>
+					</Anchor>
+					<Anchor point="BOTTOMRIGHT">
+						<Offset><AbsDimension x="-4" y="4"/></Offset>
+					</Anchor>
+				</Anchors>
+			<Color r="0" g="0" b="0" a="1"/>
+			</Texture>
+		</Layer>
+	</Layers>
+	<FontString font="Interface\Addons\VFL\Fonts\framd.ttf">
+		<FontHeight><AbsValue val="12"/></FontHeight>
+		<Color r="1.0" g="1.0" b="1.0"/>
+	</FontString>
+	<TextInsets>
+		<AbsInset left="5" right="5" top="4" bottom="4" />
+	</TextInsets>
+	<Scripts>
+		<OnEscapePressed>this:ClearFocus();</OnEscapePressed>
+	  <OnClick>this:SetFocus();</OnClick>
+	</Scripts>
+</EditBox>
+<!-- END EDITBOX TEMPLATE -->
+<!-- GROUP BOX TEMPLATE -->
+<Frame name="VFLGroupT" hidden="false" virtual="true">
+	<Frames>
+		<Frame name="$parentBorder" alpha="0.4" hidden="false">
+			<Anchors>
+				<Anchor point="TOPLEFT">
+					<Offset><AbsDimension x="0" y="-5"/></Offset>
+				</Anchor>
+				<Anchor point="BOTTOMRIGHT"/>
+			</Anchors>
+			<Backdrop name="$parentBkd" edgeFile="Interface\Tooltips\UI-Tooltip-Border">
+				<BackgroundInsets>
+					<AbsInset left="4" right="4" top="4" bottom="4" />
+				</BackgroundInsets>
+				<EdgeSize><AbsValue val="16"/></EdgeSize>
+			</Backdrop>
+			<Scripts><OnLoad>this:SetFrameLevel(2);</OnLoad></Scripts>
+		</Frame>
+		<Frame name="$parentCaptionArea">
+			<Anchors>
+				<Anchor point="TOPLEFT">
+					<Offset><AbsDimension x="8" y="1"/></Offset>
+				</Anchor>
+				<Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT">
+					<Offset><AbsDimension x="-4" y="-15"/></Offset>
+				</Anchor>
+			</Anchors>
+		</Frame>
+		<Frame name="$parentClientArea">
+			<Anchors>
+				<Anchor point="TOPLEFT">
+					<Offset><AbsDimension x="4" y="-15"/></Offset>
+				</Anchor>
+				<Anchor point="BOTTOMRIGHT">
+					<Offset><AbsDimension x="-4" y="4"/></Offset>
+				</Anchor>
+			</Anchors>
+		</Frame>
+	</Frames>
+</Frame>
+<!-- END GROUP BOX -->
+<!-- COMMON POPUP BOX -->
+<Frame name="VFLPopBox" parent="UIParent" frameStrata="FULLSCREEN_DIALOG" hidden="true" inherits="VFLTitledWinT">
+	<Size><AbsDimension x="300" y="96"/></Size>
+	<Anchors>
+		<Anchor point="CENTER">
+			<Offset><AbsDimension x="0" y="150"/></Offset>
+		</Anchor>
+	</Anchors>
+	<Frames>
+		<Frame name="$parentText" inherits="VFLStaticT">
+			<Size><AbsDimension x="290" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT">
+					<Offset><AbsDimension x="5" y="-25"/></Offset>
+				</Anchor>
+			</Anchors>
+		</Frame>
+		<EditBox name="$parentEdit" inherits="VFLEditT">
+			<Size><AbsDimension x="290" y="25"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentText" relativePoint="BOTTOMLEFT"/>
+			</Anchors>
+			<Scripts>
+				<OnEnterPressed>if(this.OnEnterPressed) then this:OnEnterPressed(); end</OnEnterPressed>
+			</Scripts>
+		</EditBox>
+		<Button name="$parentCancel" inherits="VFLCancelBtnT" text="Cancel">
+			<Size><AbsDimension x="70" y="24"/></Size>
+			<Anchors>
+				<Anchor point="BOTTOMRIGHT">
+					<Offset><AbsDimension x="-5" y="5"/></Offset>
+				</Anchor>
+			</Anchors>
+		</Button>
+		<Button name="$parentOK" inherits="VFLOKBtnT" text="OK">
+			<Size><AbsDimension x="70" y="24"/></Size>
+			<Anchors>
+				<Anchor point="RIGHT" relativeTo="$parentCancel" relativePoint="LEFT">
+				</Anchor>
+			</Anchors>
+		</Button>
+	</Frames>
+</Frame>
+<!-- END COMMON POPUP BOX -->
+<Include file="VFL_CC_Framepools.xml"/>
+</Ui>

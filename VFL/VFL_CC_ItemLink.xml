@@ -1,0 +1,29 @@
+<!--
+VFL_CC_ItemLink.xml
+VFL - Venificus' Function Library
+(C)2005 Bill Johnson (Venificus of Eredar server)
+
+XML interface for item link buttons.
+-->
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+<!-- ITEM HYPERLINK TEMPLATE -->
+<Button name="VFLItemLinkT" virtual="true">
+	<Scripts>
+		<OnEnter>
+			if(this.code) then
+				GameTooltip:SetOwner(this, "ANCHOR_NONE");
+				GameTooltip:SetPoint("TOPLEFT", this, "CENTER");
+				GameTooltip:SetHyperlink("item:" .. this.code);
+				GameTooltip:Show();
+			end
+		</OnEnter>
+		<OnLeave>
+			GameTooltip:Hide();
+		</OnLeave>
+		<OnLoad>VFL.ItemLink.Imbue(this);</OnLoad>
+	</Scripts>
+	<NormalText name="$parentText" inherits="VFLFont" justifyH="LEFT" setAllPoints="true">
+	</NormalText>
+</Button>	
+<!-- END ITEM HYPERLINK TEMPLATE -->
+</Ui>

@@ -1,0 +1,33 @@
+<!--
+VFL_CC_Static.xml
+VFL
+Venificus' Function Library
+
+A static text label.
+
+CLASSES:
+  VFLStaticT - A static text label. [Ideal size: (infinity, 16)]
+	Usage: OnShow call this:Setup("text");
+		To align, call this:Align(halign, valign);
+		To color, call this:Color(r,g,b);
+-->
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+<Frame name="VFLStaticT" hidden="false" virtual="true">
+	<Layers>
+		<Layer level="ARTWORK">
+			<FontString name="$parentTxt" inherits="VFLFontSmall" justifyH="LEFT" justifyV="CENTER">
+				<Anchors><Anchor point="TOPLEFT"/><Anchor point="BOTTOMRIGHT"/></Anchors>
+			</FontString>
+		</Layer>
+	</Layers>
+	<Scripts>
+		<OnLoad>
+			this.txt = getglobal(this:GetName() .. "Txt");
+			this.Setup = VFL.CC.Static_Setup;
+			this.Align = VFL.CC.Static_Align;
+			this.Color = VFL.CC.Static_Color;
+			this.SetFontSize = VFL.CC.Static_SetFontSize;
+		</OnLoad>
+	</Scripts>
+</Frame>
+</Ui>
