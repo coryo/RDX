@@ -50,6 +50,7 @@ Includes statusbars and appropriate highlights/icons.
 		<Button name="$parentI4" inherits="UnitIconT" hidden="true"/>
 		<StatusBar name="$parentB1" inherits="PercentBarT" setAllPoints="true"/>
 		<StatusBar name="$parentB2" inherits="PercentBarT" setAllPoints="true"/>
+		<StatusBar name="$parentB3" inherits="PercentBarT" setAllPoints="true"/>
 	</Frames>
 	<Scripts>
 		<OnLoad>

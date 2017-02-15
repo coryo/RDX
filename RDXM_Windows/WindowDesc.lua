@@ -219,6 +219,13 @@ function RDXM.WindowDesc:GenFnApplyDataBody()
 	if purpose == 1 then -- Singlebar
 		if pFunc == "Health" then -- Single healthbar
 			str = str .. "RDX.SetStatusBar(c.bar1, p, RDXG.vis.cFriendHP, RDXG.vis.cFriendHPFade); ";
+			-- Incoming Heals
+			str = str .. "if u.incheal > 0 then ";
+			str = str .. "  RDX.SetStatusBar(c.bar3, p + (u.incheal / u:MaxHealth()), {r=0.52,g=0.8,b=0.92}, {r=0.52,g=0.8,b=0.92}); ";
+			str = str .. "  c.bar3:Show(); ";
+			str = str .. "else ";
+			str = str .. "  c.bar3:Hide(); ";
+			str = str .. "end ";
 		else -- Single manabar
 			str = str .. "RDX.SetStatusBar(c.bar1, p, RDXG.vis.cMana, RDXG.vis.cManaFade); ";
 		end
@@ -234,6 +241,8 @@ function RDXM.WindowDesc:GenFnApplyDataBody()
 end
 function RDXM.WindowDesc:GenFnApplyDataStatusTextSection(pFunc)
 	local str = "RDX.SetStatusText(c.text2, p, RDXG.vis.cStatusText, RDXG.vis.cStatusTextFade); ";
+	str = str .. "if u.incheal > 0 then c.text2:SetText(string.format('+%d', u.incheal)); else ";
+
 	if(self.cfg.stext == 1) then -- percentage
 		str = str .. "c.text2:SetText(string.format('%0.0f%%', p*100)); ";
 	elseif(self.cfg.stext == 2) then
@@ -241,6 +250,7 @@ function RDXM.WindowDesc:GenFnApplyDataStatusTextSection(pFunc)
 	else
 		str = str .. "c.text2:SetText(string.format('-%d', u:Max"..pFunc.."() - u:"..pFunc.."())); ";
 	end
+	str = str .. " end";
 	return str;
 end
 function RDXM.WindowDesc:GenFnApplyDataOnClickSection()

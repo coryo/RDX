@@ -19,7 +19,10 @@ function RDX.UnitFrame.Imbue(f)
 	f.text3 = getglobal(n.."Txt3");
 	f.bar1 = getglobal(n.."B1");
 	f.bar2 = getglobal(n.."B2");
-	f.bar1:SetMinMaxValues(0,1); f.bar2:SetMinMaxValues(0,1);
+	f.bar3 = getglobal(n.."B3");
+	f.bar1:SetMinMaxValues(0,1); f.bar2:SetMinMaxValues(0,1); f.bar3:SetMinMaxValues(0,1);
+	f.bar3:SetFrameLevel(f.bar1:GetFrameLevel() - 1)
+    f.bar3:SetPoint("TOPLEFT", f.bar1, "TOPLEFT");
 	f.icon = {};
 	for i=1,4 do
 		f.icon[i] = getglobal(n.."I"..i);

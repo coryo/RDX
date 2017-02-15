@@ -19,6 +19,9 @@ RDX.Release = 4;
 RDX.Beta = nil;
 RDX.DataVersion = 12;
 
+RDXAce = AceLibrary("AceAddon-2.0"):new("AceEvent-2.0")
+RDXAce.HealComm = AceLibrary("HealComm-1.0")
+
 
 ----------------------------
 -- KEYBINDING NAMES

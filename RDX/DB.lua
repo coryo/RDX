@@ -323,6 +323,7 @@ function RDX.Unit:new(n)
 	x.group = 0; x.name = "";
 	x.valid = false;
 	x.lastContact = 0;
+	x.incheal = 0;
 	-- Generate flagsets; link them with the flag multiplexers.
 	x.flagsets = {};
 	for i=1,4 do x.flagsets[i] = RDX.FlagSet:new(RDX.fm[i], x); end
@@ -792,12 +793,22 @@ end
 -- Signals
 RDX.SigUnitHealth = VFL.Signal:new();
 RDX.SigUnitMana = VFL.Signal:new();
+RDX.SigUnitIncHeal = VFL.Signal:new();
 
 function RDX.DB.OnUnitHealth(uid)
 	if not IsRaidUnit(uid) then return; end
 	local n = UIDtoN(uid);
 	RDX.SigUnitHealth:Raise(n, RDX.GetUnitByNumber(n));
 end
+
+function RDX.DB.OnUnitIncHeal(target)
+	local unit = RDX.GetUnitByName(string.lower(target))
+
+	if not unit or not IsRaidUnit(unit.uid) then return; end
+	local n = UIDtoN(unit.uid);
+	RDX.SigUnitIncHeal:Raise(n, unit);
+end
+
 function RDX.DB.OnUnitMana(uid)
 	if not IsRaidUnit(uid) then return; end
 	local n = UIDtoN(uid);
@@ -830,4 +841,5 @@ function RDX.DB.Init()
 	RDXEvent:Bind("UNIT_HEALTH_MAX", nil, function() RDX.DB.OnUnitHealth(arg1); end);
 	RDXEvent:Bind("UNIT_MANA", nil, function() RDX.DB.OnUnitMana(arg1); end);
 	RDXEvent:Bind("UNIT_MANA_MAX", nil, function() RDX.DB.OnUnitMana(arg1); end);
+	RDXAce:RegisterEvent("HealComm_Healupdate", RDX.DB.OnUnitIncHeal);
 end

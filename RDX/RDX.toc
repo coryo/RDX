@@ -5,4 +5,13 @@
 ## Version: 5
 ## RequiredDeps: VFL
 ## SavedVariables: RDX5Data
+
+libs\AceLibrary\AceLibrary.lua
+
+libs\AceOO-2.0\AceOO-2.0.lua
+libs\AceEvent-2.0\AceEvent-2.0.lua
+
+libs\RosterLib-2.0\RosterLib-2.0.lua
+libs\HealComm-1.0\HealComm-1.0.lua
+
 RDX.xml

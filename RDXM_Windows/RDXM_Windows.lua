@@ -196,6 +196,7 @@ function RDXM.Window:BindEvents()
 	self:UnbindEvents();
 	if(self.showsHP) or (self.sortSortsHP) or (self.filterFiltersHP) then
 		RDX.SigUnitHealth:Connect(self, RDXM.Window.OnUnitHealth);
+		RDX.SigUnitIncHeal:Connect(self, RDXM.Window.OnUnitIncHeal);
 	end
 	if(self.showsMana) or (self.sortSortsMana) or (self.filterFiltersMana) then
 		RDX.SigUnitMana:Connect(self, RDXM.Window.OnUnitMana);
@@ -217,6 +218,7 @@ function RDXM.Window:UnbindEvents()
 	RDX.SigUnitIdentitiesChanged:DisconnectObject(self);
 	RDX.SigRaidRosterMoved:DisconnectObject(self);
 	RDX.SigUnitHealth:DisconnectObject(self);
+	RDX.SigUnitIncHeal:DisconnectObject(self);
 	RDX.SigUnitMana:DisconnectObject(self);
 end
 
@@ -240,6 +242,14 @@ function RDXM.Window:OnUnitHealth(un, u)
 	else
 		self:TriggerUpdate(1);
 	end
+end
+
+function RDXM.Window:OnUnitIncHeal(un, u)
+	-- If the unit's not a member of our set now, we need do nothing.
+	if not self.set:GetMember(un) then return; end
+	local healvalue = RDXAce.HealComm:getHeal(u:GetProperName())
+	u.incheal = healvalue
+	self:TriggerUpdate(1);
 end
 
 -- Respond to a UNIT_MANA event
