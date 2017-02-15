@@ -1,0 +1,103 @@
+<!--
+Interactors.xml
+RDX5
+
+Interactors, SmartKeys, etc.
+-->
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+<!-- INTERACTION TEXTBOX -->
+<Button name="RDXITextT" virtual="true">
+	<Backdrop name="$parentBkd" edgeFile="Interface\Tooltips\UI-Tooltip-Border">
+		<BackgroundInsets>
+			<AbsInset left="4" right="4" top="4" bottom="4" />
+		</BackgroundInsets>
+		<EdgeSize><AbsValue val="16"/></EdgeSize>
+	</Backdrop>
+	<Layers>
+		<Layer level="BACKGROUND">
+			<Texture name="$parentBkg">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset><AbsDimension x="4" y="-4"/></Offset>
+					</Anchor>
+					<Anchor point="BOTTOMRIGHT">
+						<Offset><AbsDimension x="-4" y="4"/></Offset>
+					</Anchor>
+				</Anchors>
+			<Color r="0" g="0" b="0" a="1"/>
+			</Texture>
+		</Layer>
+	</Layers>
+	<ButtonText name="$parentTxt" inherits="VFLFontSmall" justifyH="CENTER" justifyV="CENTER">
+	</ButtonText>
+	<PushedTextOffset><AbsDimension x="0" y="0"/></PushedTextOffset>
+	<Scripts><OnClick>if(this.OnClick) then this:OnClick(arg1); end</OnClick></Scripts>
+</Button>
+<!-- END INTERACTION TEXTBOX -->
+<!-- INTERACTION SELECTION PANE -->
+<Frame name="RDXIntSelPanelT" inherits="VFLGroupT" virtual="true">
+	<Size><AbsDimension x="350" y="48"/></Size>
+	<Frames>
+		<Frame name="$parentTitle" inherits="VFLStaticT">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentCaptionArea"/>
+				<Anchor point="BOTTOMRIGHT" relativeTo="$parentCaptionArea"/>
+			</Anchors>
+		</Frame>
+		<Button name="$parentIntSel" inherits="RDXITextT">
+			<Size><AbsDimension x="120" y="25"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentClientArea"/>
+			</Anchors>
+		</Button>
+		<Button name="$parentIntArg" inherits="RDXITextT">
+			<Size><AbsDimension x="220" y="25"/></Size>
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentIntSel" relativePoint="RIGHT"/>
+			</Anchors>
+		</Button>
+		<Button name="$parentIntCfg" inherits="VFLBtnT" text="Configure" hidden="true">
+			<Size><AbsDimension x="80" y="25"/></Size>
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentIntSel" relativePoint="RIGHT"/>
+			</Anchors>
+		</Button>
+	</Frames>
+	<Scripts>
+		<OnLoad>RDX.IntSelPanel.Imbue(this);</OnLoad>
+	</Scripts>
+</Frame>	
+<!-- END INTERACTION SELECTION PANE -->
+<!-- SMARTKEYS CONFIG -->
+<Frame name="RDXSmartkeysConfig" inherits="VFLTitledWinT" hidden="true" parent="UIParent">
+	<Size><AbsDimension x="376" y="222"/></Size>
+	<Anchors><Anchor point="CENTER"/></Anchors>
+	<Frames>
+		<Frame name="$parentContainer">
+			<Anchors>
+				<Anchor point="TOPLEFT">
+					<Offset><AbsDimension x="5" y="-24"/></Offset>
+				</Anchor>
+				<Anchor point="BOTTOMRIGHT">
+					<Offset><AbsDimension x="-5" y="5"/></Offset>
+				</Anchor>
+			</Anchors>
+		</Frame>
+		<Frame name="$parentSK1" inherits="RDXIntSelPanelT" id="1"/>
+		<Frame name="$parentSK2" inherits="RDXIntSelPanelT" id="2"/>
+		<Frame name="$parentSK3" inherits="RDXIntSelPanelT" id="3"/>
+		<Frame name="$parentSK4" inherits="RDXIntSelPanelT" id="4"/>
+		<Frame name="$parentSB" inherits="VFLVScrollT"/>
+	</Frames>
+	<Scripts>
+		<OnLoad>
+			getglobal(this:GetName().."TitleBkg"):SetGradient("HORIZONTAL",0,0,0.9,0,0,0.1);
+			getglobal(this:GetName() .. "Title"):Setup("SmartKeys");
+			getglobal(this:GetName() .. "Title"):SetFontSize(12);
+			this:SetFrameLevel(1);
+		</OnLoad>
+		<OnShow>RDX.Smartkeys.ConfigOnShow(this);</OnShow>
+	</Scripts>
+</Frame>
+<!-- END SMARTKEYS CONFIG -->
+</Ui>

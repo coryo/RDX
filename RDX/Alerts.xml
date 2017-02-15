@@ -1,0 +1,136 @@
+<!--
+Alerts.xml
+RDX5
+
+Alert engine.
+-->
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+<Frame name="RDXAlertT" parent="UIParent" virtual="true">
+	<Size><AbsDimension x="250" y="30"/></Size>		
+	<Frames>
+		<!-- The backdrop of the frame is a bordered status bar -->
+		<Frame name="$parentBkd" setAllPoints="true">
+			<Frames>
+				<StatusBar name="$parentSB">
+					<BarTexture file="Interface\TargetingFrame\UI-StatusBar"/>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset><AbsDimension x="5" y="-5"/></Offset>
+						</Anchor>
+						<Anchor point="BOTTOMRIGHT">
+							<Offset><AbsDimension x="-5" y="5"/></Offset>
+						</Anchor>
+					</Anchors>
+					<Scripts>
+						<OnLoad>this:SetMinMaxValues(0,1); this:SetValue(0);</OnLoad>
+					</Scripts>
+				</StatusBar>
+			</Frames>
+			<Backdrop name="$parentBdp" bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border">
+				<BackgroundInsets>
+					<AbsInset left="4" right="4" top="4" bottom="4" />
+				</BackgroundInsets>
+				<TileSize><AbsValue val="16"/></TileSize>
+				<EdgeSize><AbsValue val="16"/></EdgeSize>
+			</Backdrop>
+			<Scripts><OnLoad>this:SetFrameLevel(1);</OnLoad></Scripts>
+		</Frame>
+		<!-- A textbox on the left and a timer widget on the right -->
+		<Frame name="$parentFG" setAllPoints="true">
+			<Frames>
+				<Frame name="$parentTxt" inherits="VFLStaticT">
+					<Size><AbsDimension x="160" y="20"/></Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset><AbsDimension x="5" y="-5"/></Offset>
+						</Anchor>
+					</Anchors>
+				</Frame>
+				<Frame name="$parentTW" inherits="RDXTimerWidgetT">
+					<Anchors><Anchor point="LEFT" relativeTo="$parentTxt" relativePoint="RIGHT"/></Anchors>
+				</Frame>
+			</Frames>
+			<Scripts><OnLoad>this:SetFrameLevel(5);</OnLoad></Scripts>
+		</Frame>
+	</Frames>
+	<Scripts>
+		<OnLoad>RDX.Alert.Imbue(this);</OnLoad>
+		<OnUpdate>if(this.OnUpdate) then this:OnUpdate(); end</OnUpdate>
+	</Scripts>
+</Frame>
+<Frame name="RDXTopStackAnchor" parent="UIParent" hidden="true" enableMouse="true" movable="true">
+	<Size><AbsDimension x="20" y="20"/></Size>
+	<Anchors>
+		<Anchor point="TOP">
+			<Offset><AbsDimension x="-125" y="-16"/></Offset>
+		</Anchor>
+	</Anchors>
+	<Backdrop bgFile="Interface\TutorialFrame\TutorialFrameBackground" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+		<EdgeSize>
+			<AbsValue val="16"/>
+		</EdgeSize>
+		<TileSize>
+			<AbsValue val="32"/>
+		</TileSize>
+		<BackgroundInsets>
+			<AbsInset left="5" right="5" top="5" bottom="5"/>
+		</BackgroundInsets>
+	</Backdrop>
+	<Scripts>
+		<OnLoad>
+			this:RegisterForDrag("LeftButton");
+		</OnLoad>
+		<OnDragStart>
+			this:StartMoving();
+			this.isMoving = true;
+		</OnDragStart>
+		<OnDragStop>
+			this:StopMovingOrSizing();
+			this.isMoving = false;
+		</OnDragStop>
+	</Scripts>
+</Frame>
+<Frame name="RDXCenterStackAnchor" parent="UIParent" hidden="true" enableMouse="true" movable="true">
+	<Size><AbsDimension x="20" y="20"/></Size>
+	<Anchors>
+		<Anchor point="CENTER">
+			<Offset><AbsDimension x="-125" y="100"/></Offset>
+		</Anchor>
+	</Anchors>
+	<Backdrop bgFile="Interface\TutorialFrame\TutorialFrameBackground" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+		<EdgeSize>
+			<AbsValue val="16"/>
+		</EdgeSize>
+		<TileSize>
+			<AbsValue val="32"/>
+		</TileSize>
+		<BackgroundInsets>
+			<AbsInset left="5" right="5" top="5" bottom="5"/>
+		</BackgroundInsets>
+	</Backdrop>
+	<Scripts>
+		<OnLoad>
+			this:RegisterForDrag("LeftButton");
+		</OnLoad>
+		<OnDragStart>
+			this:StartMoving();
+			this.isMoving = true;
+		</OnDragStart>
+		<OnDragStop>
+			this:StopMovingOrSizing();
+			this.isMoving = false;
+		</OnDragStop>
+	</Scripts>
+</Frame>
+<!-- ALERT FRAMEPOOL -->
+<Frame name="RDXAlert1" parent="UIParent" inherits="RDXAlertT" id="1"/>
+<Frame name="RDXAlert2" parent="UIParent" inherits="RDXAlertT" id="2"/>
+<Frame name="RDXAlert3" parent="UIParent" inherits="RDXAlertT" id="3"/>
+<Frame name="RDXAlert4" parent="UIParent" inherits="RDXAlertT" id="4"/>
+<Frame name="RDXAlert5" parent="UIParent" inherits="RDXAlertT" id="5"/>
+<Frame name="RDXAlert6" parent="UIParent" inherits="RDXAlertT" id="6"/>
+<Frame name="RDXAlert7" parent="UIParent" inherits="RDXAlertT" id="7"/>
+<Frame name="RDXAlert8" parent="UIParent" inherits="RDXAlertT" id="8"/>
+<Frame name="RDXAlert9" parent="UIParent" inherits="RDXAlertT" id="9"/>
+<Frame name="RDXAlert10" parent="UIParent" inherits="RDXAlertT" id="10"/>
+</Ui>

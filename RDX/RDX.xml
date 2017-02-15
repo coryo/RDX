@@ -1,0 +1,38 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+<!--
+		INCLUSIONS
+-->
+<!-- ROOT.LUA MUST LOAD FIRST -->
+<Include file="Root.xml"/>
+<Script file="Root.lua"/>
+<Script file="Transfer.lua"/>
+<Script file="Metadata.lua"/>	
+<Script file="DB.lua"/>
+<Script file="Tracking.lua"/>
+<Script file="SyncCore.lua"/>
+<Script file="RPC.lua"/>
+<Script file="UnitFrame.lua"/>
+<Include file="UnitFrame.xml"/>
+<Script file="Windows.lua"/>
+<Include file="Windows.xml"/>
+<Script file="Filter.lua"/>
+<Include file="Filter.xml"/>
+<Script file="Modules.lua"/>
+<Script file="Encounters.lua"/>
+<Script file="Raid.lua"/>
+<Include file="Encounters.xml"/>
+<Script file="Alerts.lua"/>
+<Include file="Alerts.xml"/>
+<Script file="Smartcast.lua"/>
+<Script file="Interactors.lua"/>
+<Include file="Interactors.xml"/>
+<!--<Script file="Missing.lua"/>-->
+<Script file="Defaults.lua"/>
+<Script file="MainMenu.lua"/>
+<Script file="AutoPromote.lua"/>
+<Script file="ImpliedTarget.lua"/>
+<Script file="AggroMonitor.lua"/>
+<Script file="Location.lua"/>
+<!-- INIT.LUA MUST LOAD LAST -->
+<Script file="Init.lua"/>
+</Ui>

@@ -1,0 +1,401 @@
+<!--
+RDXM_Windows.xml
+RDX5
+
+Custom window support for RDX.
+-->
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+<!-- WINDOW DESCRIPTOR CONFIG DLG -->
+<Frame name="RDXWindowDescConfig" inherits="VFLTitledWinT" hidden="true" parent="UIParent">
+	<Size><AbsDimension x="490" y="446"/></Size>
+	<Anchors><Anchor point="CENTER"/></Anchors>
+	<Frames>
+		<!-- Filter -->
+		<Frame name="$parentFilterGB" inherits="VFLGroupT">
+			<Size><AbsDimension x="130" y="40"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT">
+					<Offset><AbsDimension x="5" y="-25"/></Offset>
+				</Anchor>
+			</Anchors>
+		</Frame>
+		<Frame name="$parentFilterGBLbl" inherits="VFLStaticT">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentFilterGBCaptionArea"/>
+				<Anchor point="BOTTOMRIGHT" relativeTo="$parentFilterGBCaptionArea"/>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup("Filter"); Label_Gold(this);</OnShow>
+			</Scripts>
+		</Frame>
+		<Button name="$parentFilterBtn" inherits="VFLBtnT" text="Set Filter">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentFilterGBClientArea"/>
+				<Anchor point="BOTTOMRIGHT" relativeTo="$parentFilterGBClientArea"/>
+			</Anchors>
+			<Scripts><OnClick>if(this.OnClick) then this:OnClick(arg1); end</OnClick></Scripts>
+		</Button>
+		<!-- End filter -->
+		<!-- Sort -->
+		<Frame name="$parentSortGB" inherits="VFLGroupT">
+			<Size><AbsDimension x="130" y="115"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentFilterGB" relativePoint="BOTTOMLEFT"/>
+			</Anchors>
+		</Frame>
+		<Frame name="$parentSortGBLbl" inherits="VFLStaticT">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentSortGBCaptionArea"/>
+				<Anchor point="BOTTOMRIGHT" relativeTo="$parentSortGBCaptionArea"/>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup("Sort"); Label_Gold(this);</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentSortRB1" inherits="VFLRadioT" id="1">
+			<Size><AbsDimension x="65" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentSortGBClientArea">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup(RDXWindowDescConfig.RGSort, "None");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentSortRB2" inherits="VFLRadioT" id="2">
+			<Size><AbsDimension x="65" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOP" relativeTo="$parentSortRB1" relativePoint="BOTTOM">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup(RDXWindowDescConfig.RGSort, "%HP");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentSortRB3" inherits="VFLRadioT" id="3">
+			<Size><AbsDimension x="65" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOP" relativeTo="$parentSortRB2" relativePoint="BOTTOM">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup(RDXWindowDescConfig.RGSort, "%Mana");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentSortRB4" inherits="VFLRadioT" id="4">
+			<Size><AbsDimension x="65" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOP" relativeTo="$parentSortRB3" relativePoint="BOTTOM">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup(RDXWindowDescConfig.RGSort, "Alpha");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentSortReverse" inherits="VFLChkT">
+			<Size><AbsDimension x="200" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentSortRB4" relativePoint="BOTTOMLEFT"/>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup("Reverse sort");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentDeadBottom" inherits="VFLChkT">
+			<Size><AbsDimension x="200" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentSortReverse" relativePoint="BOTTOMLEFT"/>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup("Dead On Bottom");</OnShow>
+			</Scripts>
+		</Frame>
+		<!-- End sort -->
+		<!-- Display -->
+		<Frame name="$parentDispGB" inherits="VFLGroupT">
+			<Size><AbsDimension x="130" y="84"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentSortGB" relativePoint="BOTTOMLEFT"/>
+			</Anchors>
+		</Frame>
+		<Frame name="$parentDispGBLbl" inherits="VFLStaticT">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentDispGBCaptionArea"/>
+				<Anchor point="BOTTOMRIGHT" relativeTo="$parentDispGBCaptionArea"/>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup("Display"); Label_Gold(this);</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentDispRB1" inherits="VFLRadioT" id="1">
+			<Size><AbsDimension x="60" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentDispGBClientArea">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup(RDXWindowDescConfig.RGDisp, "HP");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentDispRB2" inherits="VFLRadioT" id="2">
+			<Size><AbsDimension x="60" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentDispRB1" relativePoint="BOTTOMLEFT">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup(RDXWindowDescConfig.RGDisp, "Mana");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentDispRB3" inherits="VFLRadioT" id="3">
+			<Size><AbsDimension x="60" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentDispRB2" relativePoint="BOTTOMLEFT">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup(RDXWindowDescConfig.RGDisp, "Both");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentDispRB4" inherits="VFLRadioT" id="4">
+			<Size><AbsDimension x="60" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentDispRB3" relativePoint="BOTTOMLEFT">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup(RDXWindowDescConfig.RGDisp, "By Class");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentSTRB1" inherits="VFLRadioT" id="1">
+			<Size><AbsDimension x="60" y="16"/></Size>
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentDispRB1" relativePoint="RIGHT">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup(RDXWindowDescConfig.RGStatusText, "Percent");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentSTRB2" inherits="VFLRadioT" id="2">
+			<Size><AbsDimension x="60" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentSTRB1" relativePoint="BOTTOMLEFT">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup(RDXWindowDescConfig.RGStatusText, "Current");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentSTRB3" inherits="VFLRadioT" id="3">
+			<Size><AbsDimension x="60" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentSTRB2" relativePoint="BOTTOMLEFT">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup(RDXWindowDescConfig.RGStatusText, "Missing");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentSTRB4" inherits="VFLRadioT" id="4">
+			<Size><AbsDimension x="60" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentSTRB3" relativePoint="BOTTOMLEFT">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup(RDXWindowDescConfig.RGStatusText, "Ress.");</OnShow>
+			</Scripts>
+		</Frame>
+		<!-- End display -->
+		<!-- Layout (arrangement, scale) -->
+		<Frame name="$parentLayoutGB" inherits="VFLGroupT">
+			<Size><AbsDimension x="130" y="64"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentDispGB" relativePoint="BOTTOMLEFT"/>
+			</Anchors>
+		</Frame>
+		<Frame name="$parentLayoutGBLbl" inherits="VFLStaticT">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentLayoutGBCaptionArea"/>
+				<Anchor point="BOTTOMRIGHT" relativeTo="$parentLayoutGBCaptionArea"/>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup("Layout"); Label_Gold(this);</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentLayoutRB1" inherits="VFLRadioT" id="1">
+			<Size><AbsDimension x="70" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentLayoutGBClientArea">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup(RDXWindowDescConfig.RGAxis, "Vertical");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentLayoutRB2" inherits="VFLRadioT" id="2">
+			<Size><AbsDimension x="80" y="24"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentLayoutRB1" relativePoint="BOTTOMLEFT">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup(RDXWindowDescConfig.RGAxis, "Grid of width");</OnShow>
+			</Scripts>
+		</Frame>
+		<EditBox name="$parentLayoutDimension" inherits="VFLEditT">
+			<Size><AbsDimension x="38" y="24"/></Size>
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentLayoutRB2" relativePoint="RIGHT"/>
+			</Anchors>
+		</EditBox>
+		<Frame name="$parentDispTruncate" inherits="VFLChkT">
+			<Size><AbsDimension x="65" y="24"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentLayoutGB" relativePoint="BOTTOMLEFT"/>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup("Limit size:");</OnShow>
+			</Scripts>
+		</Frame>
+		<EditBox name="$parentDispTruncateNum" inherits="VFLEditT">
+			<Size><AbsDimension x="48" y="24"/></Size>
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentDispTruncate" relativePoint="RIGHT"/>
+			</Anchors>
+		</EditBox>
+		<Frame name="$parentScaleChk" inherits="VFLChkT">
+			<Size><AbsDimension x="65" y="24"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentDispTruncate" relativePoint="BOTTOMLEFT">
+					<Offset><AbsDimension x="0" y="-5"/></Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup("Scale:");</OnShow>
+			</Scripts>
+		</Frame>
+		<Slider name="$parentScale" inherits="VFLSliderT">
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentScaleChk" relativePoint="RIGHT"/>
+			</Anchors>
+			<Scripts><OnLoad>this:SetMinMaxValues(0.5,2); this:SetValue(1);</OnLoad></Scripts>
+		</Slider>
+		<Frame name="$parentAlphaChk" inherits="VFLChkT">
+			<Size><AbsDimension x="65" y="24"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentScaleChk" relativePoint="BOTTOMLEFT">
+					<Offset><AbsDimension x="0" y="-5"/></Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup("Alpha:");</OnShow>
+			</Scripts>
+		</Frame>
+		<Slider name="$parentAlpha" inherits="VFLSliderT">
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentAlphaChk" relativePoint="RIGHT"/>
+			</Anchors>
+			<Scripts><OnLoad>this:SetMinMaxValues(0,1); this:SetValue(1);</OnLoad></Scripts>
+		</Slider>
+		<Frame name="$parentWidthChk" inherits="VFLChkT">
+			<Size><AbsDimension x="65" y="24"/></Size>
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentScaleChk" relativePoint="LEFT">
+					<Offset><AbsDimension x="200" y="0"/></Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup("Width:");</OnShow>
+			</Scripts>
+		</Frame>
+		<Slider name="$parentWidth" inherits="VFLSliderT">
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentWidthChk" relativePoint="RIGHT"/>
+			</Anchors>
+			<Scripts><OnLoad>this:SetMinMaxValues(80,300); this:SetValue(1);</OnLoad></Scripts>
+		</Slider>
+		<Frame name="$parentHeightChk" inherits="VFLChkT">
+			<Size><AbsDimension x="65" y="24"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentWidthChk" relativePoint="BOTTOMLEFT">
+					<Offset><AbsDimension x="0" y="-5"/></Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup("Height:");</OnShow>
+			</Scripts>
+		</Frame>
+		<Slider name="$parentHeight" inherits="VFLSliderT">
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentHeightChk" relativePoint="RIGHT"/>
+			</Anchors>
+			<Scripts><OnLoad>this:SetMinMaxValues(10,60); this:SetValue(15);</OnLoad></Scripts>
+		</Slider>
+		<!-- End layout -->
+		<!-- Left button -->
+		<Frame name="$parentIntLBtn" inherits="RDXIntSelPanelT">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentFilterGB" relativePoint="TOPRIGHT"/>
+			</Anchors>
+		</Frame>
+		<Frame name="$parentIntSLBtn" inherits="RDXIntSelPanelT">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentIntLBtn" relativePoint="BOTTOMLEFT"/>
+			</Anchors>
+		</Frame>
+		<Frame name="$parentIntMBtn" inherits="RDXIntSelPanelT">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentIntSLBtn" relativePoint="BOTTOMLEFT"/>
+			</Anchors>
+		</Frame>
+		<Frame name="$parentIntSMBtn" inherits="RDXIntSelPanelT">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentIntMBtn" relativePoint="BOTTOMLEFT"/>
+			</Anchors>
+		</Frame>
+		<Frame name="$parentIntRBtn" inherits="RDXIntSelPanelT">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentIntSMBtn" relativePoint="BOTTOMLEFT"/>
+			</Anchors>
+		</Frame>
+		<Frame name="$parentIntSRBtn" inherits="RDXIntSelPanelT">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentIntRBtn" relativePoint="BOTTOMLEFT"/>
+			</Anchors>
+		</Frame>
+		<!-- OK/cancel -->
+		<Button name="$parentCancel" inherits="VFLCancelBtnT" text="Cancel">
+			<Size><AbsDimension x="70" y="24"/></Size>
+			<Anchors>
+				<Anchor point="BOTTOMRIGHT">
+					<Offset><AbsDimension x="-5" y="5"/></Offset>
+				</Anchor>
+			</Anchors>
+		</Button>
+		<Button name="$parentOK" inherits="VFLOKBtnT" text="OK">
+			<Size><AbsDimension x="70" y="24"/></Size>
+			<Anchors>
+				<Anchor point="RIGHT" relativeTo="$parentCancel" relativePoint="LEFT">a
+				</Anchor>
+			</Anchors>
+		</Button>
+	</Frames>
+	<Scripts>
+		<OnLoad>
+			this.RGSort = VFL.RadioGroup:new();
+			this.RGDisp = VFL.RadioGroup:new();
+			this.RGAxis = VFL.RadioGroup:new();
+			this.RGStatusText = VFL.RadioGroup:new();
+			getglobal(this:GetName().."TitleBkg"):SetGradient("HORIZONTAL",0,0,0.9,0,0,0.1);
+			getglobal(this:GetName() .. "Title"):Setup("Window Configuration");
+			getglobal(this:GetName() .. "Title"):SetFontSize(12);
+			this:SetFrameLevel(1);
+		</OnLoad>
+	</Scripts>
+</Frame>	
+<!-- END WINDOW DESCR CONFIG -->
+<Script file="WindowDesc.lua"/>
+<Script file="RDXM_Windows.lua"/>
+</Ui>

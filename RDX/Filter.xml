@@ -1,0 +1,555 @@
+<!--
+Filter.xml
+RDX5
+
+Filter configuration screen
+-->
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+<!-- A button that toggles between "percent" and "total" -->	
+<Button name="RDXSTypeToggleT" inherits="VFLBtnT" virtual="true">
+	<Size><AbsDimension x="35" y="24"/></Size>
+	<Scripts>
+		<OnShow>
+			this:SetText("%");
+		</OnShow>
+		<OnClick>
+			local t = this:GetText();
+			if(t == "%") then
+				this:SetText("#");
+			elseif(t == "#") then
+				this:SetText("%M");
+			elseif(t == "%M") then
+				this:SetText("#M");
+			else
+				this:SetText("%");
+			end
+		</OnClick>
+	</Scripts>
+</Button>
+<!-- The config frame -->
+<Frame name="RDXFilterConfig" inherits="VFLTitledWinT" hidden="true">
+	<Size><AbsDimension x="375" y="420"/></Size>
+	<Anchors><Anchor point="CENTER"/></Anchors>
+	<Layers>
+		<Layer level="BACKGROUND">
+			<Texture file="Interface\Addons\RDX\Skin\black">
+				<Anchors>
+					<Anchor point="TOPLEFT"><Offset><AbsDimension x="5" y="-5"/></Offset></Anchor>
+					<Anchor point="BOTTOMRIGHT"><Offset><AbsDimension x="-5" y="5"/></Offset></Anchor>
+				</Anchors>
+			</Texture>
+		</Layer>
+	</Layers>
+	<Frames>
+		<!-- FILTER BY LIST -->
+		<Frame name="$parentList" inherits="VFLEditListT">
+			<Anchors>
+				<Anchor point="TOPLEFT">
+					<Offset><AbsDimension x="5" y="-25"/></Offset>
+				</Anchor>
+			</Anchors>
+		</Frame>
+		<Frame name="$parentListChk" inherits="VFLChkT">
+			<Size><AbsDimension x="75" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentListCaptionArea"/>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup("Filter by list:"); CC_ColorGold(this);</OnShow>
+			</Scripts>
+		</Frame>
+		<Button name="$parentListIncExc" inherits="VFLBtnT" text="incl">
+			<Size><AbsDimension x="35" y="20"/></Size>
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentListChk" relativePoint="RIGHT"/>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					if(this:GetText() == "incl") then this:SetText("excl"); else this:SetText("incl"); end
+				</OnClick>
+			</Scripts>
+		</Button>
+		<!-- END FILTER BY LIST -->
+		<!-- FILTER BY CLASS/GRP -->
+		<Frame name="$parentClassGrpGB" inherits="VFLGroupT">
+			<Size><AbsDimension x="220" y="128"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentList" relativePoint="TOPRIGHT">
+				</Anchor>
+			</Anchors>
+		</Frame>
+		<Frame name="$parentClassGrpChk" inherits="VFLChkT">
+			<Size><AbsDimension x="130" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentClassGrpGBCaptionArea"/>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup("Filter by class/group"); CC_ColorGold(this);</OnShow>
+			</Scripts>
+		</Frame>
+		<!-- GROUPS -->
+		<Frame name="$parentGrpGB" inherits="VFLGroupT">
+			<Size><AbsDimension x="82" y="104"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentClassGrpGBClientArea">
+				</Anchor>
+			</Anchors>
+		</Frame>
+		<Frame name="$parentGrpLbl" inherits="VFLStaticT">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentGrpGBCaptionArea"/>
+				<Anchor point="BOTTOMRIGHT" relativeTo="$parentGrpGBCaptionArea"/>
+			</Anchors>o
+			<Scripts>
+				<OnShow>this:Setup("Groups:");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentG1" inherits="VFLChkT" id="1">
+			<Size><AbsDimension x="35" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentGrpGBClientArea"/>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup("1");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentG2" inherits="VFLChkT">
+			<Size><AbsDimension x="35" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentG1" relativePoint="TOPRIGHT"/>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup("2");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentG3" inherits="VFLChkT">
+			<Size><AbsDimension x="35" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentG1" relativePoint="BOTTOMLEFT"/>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup("3");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentG4" inherits="VFLChkT">
+			<Size><AbsDimension x="35" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentG3" relativePoint="TOPRIGHT"/>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup("4");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentG5" inherits="VFLChkT">
+			<Size><AbsDimension x="35" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentG3" relativePoint="BOTTOMLEFT"/>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup("5");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentG6" inherits="VFLChkT">
+			<Size><AbsDimension x="35" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentG5" relativePoint="TOPRIGHT"/>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup("6");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentG7" inherits="VFLChkT">
+			<Size><AbsDimension x="35" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentG5" relativePoint="BOTTOMLEFT"/>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup("7");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentG8" inherits="VFLChkT">
+			<Size><AbsDimension x="35" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentG7" relativePoint="TOPRIGHT"/>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup("8");</OnShow>
+			</Scripts>
+		</Frame>
+		<Button name="$parentGNone" inherits="VFLBtnT" text="-">
+			<Size><AbsDimension x="30" y="20"/></Size>
+			<Anchors>
+				<Anchor point="BOTTOMRIGHT" relativeTo="$parentGrpGB">
+					<Offset><AbsDimension x="-5" y="5"/></Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>for i=1,8 do getglobal("RDXFilterConfigG"..i):Set(false); end</OnClick>
+			</Scripts>
+		</Button>
+		<Button name="$parentGAll" inherits="VFLBtnT" text="+">
+			<Size><AbsDimension x="30" y="20"/></Size>
+			<Anchors>
+				<Anchor point="RIGHT" relativeTo="$parentGNone" relativePoint="LEFT">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>for i=1,8 do getglobal("RDXFilterConfigG"..i):Set(true); end</OnClick>
+			</Scripts>
+		</Button>
+		<!-- CLASSES -->
+		<Frame name="$parentClsGB" inherits="VFLGroupT">
+			<Size><AbsDimension x="128" y="104"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentGrpGB" relativePoint="TOPRIGHT">
+				</Anchor>
+			</Anchors>
+		</Frame>
+		<Frame name="$parentClsLbl" inherits="VFLStaticT">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentClsGBCaptionArea"/>
+				<Anchor point="BOTTOMRIGHT" relativeTo="$parentClsGBCaptionArea"/>
+			</Anchors>o
+			<Scripts>
+				<OnShow>this:Setup("Classes:");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentC1" inherits="VFLChkT" id="1">
+			<Size><AbsDimension x="60" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentClsGBClientArea"/>
+			</Anchors>
+			<Scripts>
+				<OnShow>RDX.FilterCCOnLoad(this);</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentC2" inherits="VFLChkT" id="2">
+			<Size><AbsDimension x="60" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentC1" relativePoint="TOPRIGHT"/>
+			</Anchors>
+			<Scripts>
+				<OnShow>RDX.FilterCCOnLoad(this);</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentC3" inherits="VFLChkT" id="3">
+			<Size><AbsDimension x="60" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentC1" relativePoint="BOTTOMLEFT"/>
+			</Anchors>
+			<Scripts>
+				<OnShow>RDX.FilterCCOnLoad(this);</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentC4" inherits="VFLChkT" id="4">
+			<Size><AbsDimension x="60" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentC3" relativePoint="TOPRIGHT"/>
+			</Anchors>
+			<Scripts>
+				<OnShow>RDX.FilterCCOnLoad(this);</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentC5" inherits="VFLChkT" id="5">
+			<Size><AbsDimension x="60" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentC3" relativePoint="BOTTOMLEFT"/>
+			</Anchors>
+			<Scripts>
+				<OnShow>RDX.FilterCCOnLoad(this);</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentC6" inherits="VFLChkT" id="6">
+			<Size><AbsDimension x="60" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentC5" relativePoint="TOPRIGHT"/>
+			</Anchors>
+			<Scripts>
+				<OnShow>RDX.FilterCCOnLoad(this);</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentC7" inherits="VFLChkT" id="7">
+			<Size><AbsDimension x="60" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentC5" relativePoint="BOTTOMLEFT"/>
+			</Anchors>
+			<Scripts>
+				<OnShow>RDX.FilterCCOnLoad(this);</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentC8" inherits="VFLChkT" id="8">
+			<Size><AbsDimension x="60" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentC7" relativePoint="TOPRIGHT"/>
+			</Anchors>
+			<Scripts>
+				<OnShow>RDX.FilterCCOnLoad(this);</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentC9" inherits="VFLChkT" id="9">
+			<Size><AbsDimension x="60" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentC7" relativePoint="BOTTOMLEFT"/>
+			</Anchors>
+			<Scripts>
+				<OnShow>RDX.FilterCCOnLoad(this);</OnShow>
+			</Scripts>
+		</Frame>
+		<Button name="$parentCNone" inherits="VFLBtnT" text="-">
+			<Size><AbsDimension x="30" y="20"/></Size>
+			<Anchors>
+				<Anchor point="BOTTOMRIGHT" relativeTo="$parentClsGB">
+					<Offset><AbsDimension x="-5" y="5"/></Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>for i=1,9 do getglobal("RDXFilterConfigC"..i):Set(false); end</OnClick>
+			</Scripts>
+		</Button>
+		<Button name="$parentCAll" inherits="VFLBtnT" text="+">
+			<Size><AbsDimension x="30" y="20"/></Size>
+			<Anchors>
+				<Anchor point="RIGHT" relativeTo="$parentCNone" relativePoint="LEFT">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>for i=1,9 do getglobal("RDXFilterConfigC"..i):Set(true); end</OnClick>
+			</Scripts>
+		</Button>
+		<!-- END FILTER BY PARTY/GRP -->
+		<!-- FILTER BY HP/MANA -->
+		<Frame name="$parentHMGB" inherits="VFLGroupT">
+			<Size><AbsDimension x="220" y="70"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentClassGrpGB" relativePoint="BOTTOMLEFT">
+				</Anchor>
+			</Anchors>
+		</Frame>
+		<Frame name="$parentHMChk" inherits="VFLChkT">
+			<Size><AbsDimension x="130" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentHMGBCaptionArea"/>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup("Filter by HP/Mana"); CC_ColorGold(this);</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentHPChk" inherits="VFLChkT">
+			<Size><AbsDimension x="80" y="24"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentHMGBClientArea"/>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup("HP between:");</OnShow>
+			</Scripts>
+		</Frame>
+		<EditBox name="$parentHPMin" inherits="VFLEditT">
+			<Size><AbsDimension x="48" y="24"/></Size>
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentHPChk" relativePoint="RIGHT"/>
+			</Anchors>
+		</EditBox>
+		<EditBox name="$parentHPMax" inherits="VFLEditT">
+			<Size><AbsDimension x="48" y="24"/></Size>
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentHPMin" relativePoint="RIGHT"/>
+			</Anchors>
+		</EditBox>
+		<Button name="$parentHPType" inherits="RDXSTypeToggleT">
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentHPMax" relativePoint="RIGHT"/>
+			</Anchors>
+		</Button>
+		<Frame name="$parentMPChk" inherits="VFLChkT">
+			<Size><AbsDimension x="80" y="24"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentHPChk" relativePoint="BOTTOMLEFT"/>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup("MP between:");</OnShow>
+			</Scripts>
+		</Frame>
+		<EditBox name="$parentMPMin" inherits="VFLEditT">
+			<Size><AbsDimension x="48" y="24"/></Size>
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentMPChk" relativePoint="RIGHT"/>
+			</Anchors>
+		</EditBox>
+		<EditBox name="$parentMPMax" inherits="VFLEditT">
+			<Size><AbsDimension x="48" y="24"/></Size>
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentMPMin" relativePoint="RIGHT"/>
+			</Anchors>
+		</EditBox>
+		<Button name="$parentMPType" inherits="RDXSTypeToggleT">
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentMPMax" relativePoint="RIGHT"/>
+			</Anchors>
+		</Button>
+		<!-- END FILTER BY HP/MANA -->
+		<!-- OTHER FILTERS -->
+		<Frame name="$parentOtherGB" inherits="VFLGroupT">
+			<Size><AbsDimension x="350" y="73"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentList" relativePoint="BOTTOMLEFT">
+				</Anchor>
+			</Anchors>
+		</Frame>
+		<Frame name="$parentOtherLbl" inherits="VFLStaticT">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentOtherGBCaptionArea"/>
+				<Anchor point="BOTTOMRIGHT" relativeTo="$parentOtherGBCaptionArea"/>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup("Other filters"); CC_ColorGold(this);</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentDeadLbl" inherits="VFLStaticT">
+			<Size><AbsDimension x="80" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentOtherGBClientArea">
+					<Offset><AbsDimension x="4" y="0"/></Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup("Dead players:");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentDeadRB1" inherits="VFLRadioT" id="1">
+			<Size><AbsDimension x="80" y="16"/></Size>
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentDeadLbl" relativePoint="RIGHT">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup(RDXFilterConfig.RGDead, "Don't filter");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentDeadRB2" inherits="VFLRadioT" id="2">
+			<Size><AbsDimension x="80" y="16"/></Size>
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentDeadRB1" relativePoint="RIGHT">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup(RDXFilterConfig.RGDead, "Filter only");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentDeadRB3" inherits="VFLRadioT" id="3">
+			<Size><AbsDimension x="80" y="16"/></Size>
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentDeadRB2" relativePoint="RIGHT">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup(RDXFilterConfig.RGDead, "Filter out");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentDesyncLbl" inherits="VFLStaticT">
+			<Size><AbsDimension x="80" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentDeadLbl" relativePoint="BOTTOMLEFT">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup("Desynced players:");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentDesyncRB1" inherits="VFLRadioT" id="1">
+			<Size><AbsDimension x="80" y="16"/></Size>
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentDesyncLbl" relativePoint="RIGHT">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup(RDXFilterConfig.RGDesync, "Don't filter");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentDesyncRB2" inherits="VFLRadioT" id="2">
+			<Size><AbsDimension x="80" y="16"/></Size>
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentDesyncRB1" relativePoint="RIGHT">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup(RDXFilterConfig.RGDesync, "Filter only");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentDesyncRB3" inherits="VFLRadioT" id="3">
+			<Size><AbsDimension x="80" y="16"/></Size>
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentDesyncRB2" relativePoint="RIGHT">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup(RDXFilterConfig.RGDesync, "Filter out");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentFollowLbl" inherits="VFLStaticT">
+			<Size><AbsDimension x="80" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentDesyncLbl" relativePoint="BOTTOMLEFT">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup("28 Yards:");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentFollowRB1" inherits="VFLRadioT" id="1">
+			<Size><AbsDimension x="80" y="16"/></Size>
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentFollowLbl" relativePoint="RIGHT">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup(RDXFilterConfig.RGFollow, "Don't filter");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentFollowRB2" inherits="VFLRadioT" id="2">
+			<Size><AbsDimension x="80" y="16"/></Size>
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentFollowRB1" relativePoint="RIGHT">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup(RDXFilterConfig.RGFollow, "Filter only");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentFollowRB3" inherits="VFLRadioT" id="3">
+			<Size><AbsDimension x="80" y="16"/></Size>
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentFollowRB2" relativePoint="RIGHT">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup(RDXFilterConfig.RGFollow, "Filter out");</OnShow>
+			</Scripts>
+		</Frame>
+		<!-- END OTHER FILTERS -->
+		<!-- OK/CANCEL -->
+		<Button name="$parentCancel" inherits="VFLCancelBtnT" text="Cancel">
+			<Size><AbsDimension x="50" y="24"/></Size>
+			<Anchors>
+				<Anchor point="BOTTOMRIGHT">
+					<Offset><AbsDimension x="-5" y="5"/></Offset>
+				</Anchor>
+			</Anchors>
+		</Button>
+		<Button name="$parentOK" inherits="VFLOKBtnT" text="OK">
+			<Size><AbsDimension x="50" y="24"/></Size>
+			<Anchors>
+				<Anchor point="RIGHT" relativeTo="$parentCancel" relativePoint="LEFT">
+				</Anchor>
+			</Anchors>
+		</Button>
+	</Frames>
+	<Scripts>
+		<OnLoad>
+			this.RGDead = VFL.RadioGroup:new();
+			this.RGDesync = VFL.RadioGroup:new();
+			this.RGFollow = VFL.RadioGroup:new();
+			getglobal(this:GetName().."TitleBkg"):SetGradient("HORIZONTAL",0,0,0.9,0,0,0.1);
+		</OnLoad>
+	</Scripts>
+</Frame>
+</Ui>

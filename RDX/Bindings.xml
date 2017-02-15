@@ -1,0 +1,29 @@
+<!--
+			KEYBINDINGS
+-->
+<Bindings>
+	<Binding name="RDXHIDEUI" runOnUp="true" header="RDX">
+		if ( keystate == "down" ) then
+			RDX.ToggleHideUI();
+		end
+	</Binding>
+	<Binding name="RDXSTARTSTOPTIMER" runOnUp="true">
+		if ( keystate == "down" ) then
+			RDX.ToggleEncounterTimer()
+		end
+	</Binding>
+	<Binding name="RDXBUFF" runOnUp="true">
+		if RDXM.Buffs then
+			RDXM.Buffs.Autobuff();
+		else
+			VFL.print("You cannot use the RDXBuff command - You do not have the module installed!");
+		end
+	</Binding>
+	<Binding name="RDXCURE" runOnUp="true">
+		if RDXM.Debuffs then
+			RDXM.Debuffs.Autocure();
+		else
+			VFL.print("You cannot use the RDXCure command - You do not have the module installed!");
+		end
+	</Binding>
+</Bindings>

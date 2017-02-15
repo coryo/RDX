@@ -1,0 +1,267 @@
+<!--
+RDX5_UnitFrame.xml
+RDX5
+
+A dynamic control displaying information about a unit.
+Includes statusbars and appropriate highlights/icons.
+
+-->
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+<StatusBar name="PercentBarT" enableMouse="false" enableKeyboard="false" virtual="true">
+	<BarTexture file="Interface\Addons\RDX\Skin\StatusBar">
+	</BarTexture>
+	<Scripts>
+		<OnLoad>this:SetMinMaxValues(0,1); this:SetValue(0); this:SetFrameLevel(2);</OnLoad>
+	</Scripts>
+</StatusBar>
+<Button name="UnitIconT" virtual="true">
+	<Size><AbsDimension x="12" y="12"/></Size>
+	<Scripts>
+		<OnEnter>
+			if(this.meta) then RDX.ShowAuraTooltip(this.meta, this, "RIGHT"); end
+		</OnEnter>
+		<OnLeave>
+			GameTooltip:Hide();
+		</OnLeave>
+		<OnLoad>
+			this.SetMeta = function(self, meta)
+				self.meta = meta;
+				self:SetNormalTexture(meta.texture);				
+			end
+		</OnLoad>
+	</Scripts>
+</Button>
+<Button name="RDXUnitT" hidden="true" virtual="true">
+	<HighlightTexture name="$parentBtnHlt" file="Interface\QuestFrame\UI-QuestTitleHighlight" alphaMode="ADD" setAllPoints="true"/>
+	<Layers>
+		<Layer level="FOREGROUND">
+			<FontString name="$parentTxt1" inherits="VFLFontSmall" justifyH="LEFT" justifyV="CENTER"/>
+			<FontString name="$parentTxt2" inherits="VFLFontSmall" justifyH="RIGHT" justifyV="CENTER"/>
+			<FontString name="$parentTxt3" inherits="VFLFontSmall" justifyH="LEFT" justifyV="CENTER"/>
+			<Texture name="$parentHlt" hidden="true" setAllPoints="true">
+				<Color r="1" g="1" b="1" a="1"/>
+			</Texture>
+		</Layer>
+	</Layers>
+	<Frames>
+		<Button name="$parentI1" inherits="UnitIconT" hidden="true"/>
+		<Button name="$parentI2" inherits="UnitIconT" hidden="true"/>
+		<Button name="$parentI3" inherits="UnitIconT" hidden="true"/>
+		<Button name="$parentI4" inherits="UnitIconT" hidden="true"/>
+		<StatusBar name="$parentB1" inherits="PercentBarT" setAllPoints="true"/>
+		<StatusBar name="$parentB2" inherits="PercentBarT" setAllPoints="true"/>
+	</Frames>
+	<Scripts>
+		<OnLoad>
+			this:RegisterForClicks("LeftButtonUp", "MiddleButtonUp", "RightButtonUp");
+			RDX.UnitFrame.Imbue(this);
+		</OnLoad>
+		<OnMouseDown>if(this.MouseDown) then this:MouseDown(arg1); end</OnMouseDown>
+		<OnMouseUp>if(this.MouseUp) then this:MouseUp(arg1); end</OnMouseUp>
+		<OnMouseWheel>if(this.MouseWheel) then this:MouseWheel(arg1); end</OnMouseWheel>
+		<OnClick>if(this.OnClick) then this:OnClick(arg1); end</OnClick>
+	</Scripts>
+</Button>
+<!-- BEGIN UNITFRAMES POOL -->
+<Button name="RDXUF1" inherits="RDXUnitT" id="1"/>
+<Button name="RDXUF2" inherits="RDXUnitT" id="2"/>
+<Button name="RDXUF3" inherits="RDXUnitT" id="3"/>
+<Button name="RDXUF4" inherits="RDXUnitT" id="4"/>
+<Button name="RDXUF5" inherits="RDXUnitT" id="5"/>
+<Button name="RDXUF6" inherits="RDXUnitT" id="6"/>
+<Button name="RDXUF7" inherits="RDXUnitT" id="7"/>
+<Button name="RDXUF8" inherits="RDXUnitT" id="8"/>
+<Button name="RDXUF9" inherits="RDXUnitT" id="9"/>
+<Button name="RDXUF10" inherits="RDXUnitT" id="10"/>
+<Button name="RDXUF11" inherits="RDXUnitT" id="11"/>
+<Button name="RDXUF12" inherits="RDXUnitT" id="12"/>
+<Button name="RDXUF13" inherits="RDXUnitT" id="13"/>
+<Button name="RDXUF14" inherits="RDXUnitT" id="14"/>
+<Button name="RDXUF15" inherits="RDXUnitT" id="15"/>
+<Button name="RDXUF16" inherits="RDXUnitT" id="16"/>
+<Button name="RDXUF17" inherits="RDXUnitT" id="17"/>
+<Button name="RDXUF18" inherits="RDXUnitT" id="18"/>
+<Button name="RDXUF19" inherits="RDXUnitT" id="19"/>
+<Button name="RDXUF20" inherits="RDXUnitT" id="20"/>
+<Button name="RDXUF21" inherits="RDXUnitT" id="21"/>
+<Button name="RDXUF22" inherits="RDXUnitT" id="22"/>
+<Button name="RDXUF23" inherits="RDXUnitT" id="23"/>
+<Button name="RDXUF24" inherits="RDXUnitT" id="24"/>
+<Button name="RDXUF25" inherits="RDXUnitT" id="25"/>
+<Button name="RDXUF26" inherits="RDXUnitT" id="26"/>
+<Button name="RDXUF27" inherits="RDXUnitT" id="27"/>
+<Button name="RDXUF28" inherits="RDXUnitT" id="28"/>
+<Button name="RDXUF29" inherits="RDXUnitT" id="29"/>
+<Button name="RDXUF30" inherits="RDXUnitT" id="30"/>
+<Button name="RDXUF31" inherits="RDXUnitT" id="31"/>
+<Button name="RDXUF32" inherits="RDXUnitT" id="32"/>
+<Button name="RDXUF33" inherits="RDXUnitT" id="33"/>
+<Button name="RDXUF34" inherits="RDXUnitT" id="34"/>
+<Button name="RDXUF35" inherits="RDXUnitT" id="35"/>
+<Button name="RDXUF36" inherits="RDXUnitT" id="36"/>
+<Button name="RDXUF37" inherits="RDXUnitT" id="37"/>
+<Button name="RDXUF38" inherits="RDXUnitT" id="38"/>
+<Button name="RDXUF39" inherits="RDXUnitT" id="39"/>
+<Button name="RDXUF40" inherits="RDXUnitT" id="40"/>
+<Button name="RDXUF41" inherits="RDXUnitT" id="41"/>
+<Button name="RDXUF42" inherits="RDXUnitT" id="42"/>
+<Button name="RDXUF43" inherits="RDXUnitT" id="43"/>
+<Button name="RDXUF44" inherits="RDXUnitT" id="44"/>
+<Button name="RDXUF45" inherits="RDXUnitT" id="45"/>
+<Button name="RDXUF46" inherits="RDXUnitT" id="46"/>
+<Button name="RDXUF47" inherits="RDXUnitT" id="47"/>
+<Button name="RDXUF48" inherits="RDXUnitT" id="48"/>
+<Button name="RDXUF49" inherits="RDXUnitT" id="49"/>
+<Button name="RDXUF50" inherits="RDXUnitT" id="50"/>
+<Button name="RDXUF51" inherits="RDXUnitT" id="51"/>
+<Button name="RDXUF52" inherits="RDXUnitT" id="52"/>
+<Button name="RDXUF53" inherits="RDXUnitT" id="53"/>
+<Button name="RDXUF54" inherits="RDXUnitT" id="54"/>
+<Button name="RDXUF55" inherits="RDXUnitT" id="55"/>
+<Button name="RDXUF56" inherits="RDXUnitT" id="56"/>
+<Button name="RDXUF57" inherits="RDXUnitT" id="57"/>
+<Button name="RDXUF58" inherits="RDXUnitT" id="58"/>
+<Button name="RDXUF59" inherits="RDXUnitT" id="59"/>
+<Button name="RDXUF60" inherits="RDXUnitT" id="60"/>
+<Button name="RDXUF61" inherits="RDXUnitT" id="61"/>
+<Button name="RDXUF62" inherits="RDXUnitT" id="62"/>
+<Button name="RDXUF63" inherits="RDXUnitT" id="63"/>
+<Button name="RDXUF64" inherits="RDXUnitT" id="64"/>
+<Button name="RDXUF65" inherits="RDXUnitT" id="65"/>
+<Button name="RDXUF66" inherits="RDXUnitT" id="66"/>
+<Button name="RDXUF67" inherits="RDXUnitT" id="67"/>
+<Button name="RDXUF68" inherits="RDXUnitT" id="68"/>
+<Button name="RDXUF69" inherits="RDXUnitT" id="69"/>
+<Button name="RDXUF70" inherits="RDXUnitT" id="70"/>
+<Button name="RDXUF71" inherits="RDXUnitT" id="71"/>
+<Button name="RDXUF72" inherits="RDXUnitT" id="72"/>
+<Button name="RDXUF73" inherits="RDXUnitT" id="73"/>
+<Button name="RDXUF74" inherits="RDXUnitT" id="74"/>
+<Button name="RDXUF75" inherits="RDXUnitT" id="75"/>
+<Button name="RDXUF76" inherits="RDXUnitT" id="76"/>
+<Button name="RDXUF77" inherits="RDXUnitT" id="77"/>
+<Button name="RDXUF78" inherits="RDXUnitT" id="78"/>
+<Button name="RDXUF79" inherits="RDXUnitT" id="79"/>
+<Button name="RDXUF80" inherits="RDXUnitT" id="80"/>
+<Button name="RDXUF81" inherits="RDXUnitT" id="81"/>
+<Button name="RDXUF82" inherits="RDXUnitT" id="82"/>
+<Button name="RDXUF83" inherits="RDXUnitT" id="83"/>
+<Button name="RDXUF84" inherits="RDXUnitT" id="84"/>
+<Button name="RDXUF85" inherits="RDXUnitT" id="85"/>
+<Button name="RDXUF86" inherits="RDXUnitT" id="86"/>
+<Button name="RDXUF87" inherits="RDXUnitT" id="87"/>
+<Button name="RDXUF88" inherits="RDXUnitT" id="88"/>
+<Button name="RDXUF89" inherits="RDXUnitT" id="89"/>
+<Button name="RDXUF90" inherits="RDXUnitT" id="90"/>
+<Button name="RDXUF91" inherits="RDXUnitT" id="91"/>
+<Button name="RDXUF92" inherits="RDXUnitT" id="92"/>
+<Button name="RDXUF93" inherits="RDXUnitT" id="93"/>
+<Button name="RDXUF94" inherits="RDXUnitT" id="94"/>
+<Button name="RDXUF95" inherits="RDXUnitT" id="95"/>
+<Button name="RDXUF96" inherits="RDXUnitT" id="96"/>
+<Button name="RDXUF97" inherits="RDXUnitT" id="97"/>
+<Button name="RDXUF98" inherits="RDXUnitT" id="98"/>
+<Button name="RDXUF99" inherits="RDXUnitT" id="99"/>
+<Button name="RDXUF100" inherits="RDXUnitT" id="100"/>
+<Button name="RDXUF101" inherits="RDXUnitT" id="101"/>
+<Button name="RDXUF102" inherits="RDXUnitT" id="102"/>
+<Button name="RDXUF103" inherits="RDXUnitT" id="103"/>
+<Button name="RDXUF104" inherits="RDXUnitT" id="104"/>
+<Button name="RDXUF105" inherits="RDXUnitT" id="105"/>
+<Button name="RDXUF106" inherits="RDXUnitT" id="106"/>
+<Button name="RDXUF107" inherits="RDXUnitT" id="107"/>
+<Button name="RDXUF108" inherits="RDXUnitT" id="108"/>
+<Button name="RDXUF109" inherits="RDXUnitT" id="109"/>
+<Button name="RDXUF110" inherits="RDXUnitT" id="110"/>
+<Button name="RDXUF111" inherits="RDXUnitT" id="111"/>
+<Button name="RDXUF112" inherits="RDXUnitT" id="112"/>
+<Button name="RDXUF113" inherits="RDXUnitT" id="113"/>
+<Button name="RDXUF114" inherits="RDXUnitT" id="114"/>
+<Button name="RDXUF115" inherits="RDXUnitT" id="115"/>
+<Button name="RDXUF116" inherits="RDXUnitT" id="116"/>
+<Button name="RDXUF117" inherits="RDXUnitT" id="117"/>
+<Button name="RDXUF118" inherits="RDXUnitT" id="118"/>
+<Button name="RDXUF119" inherits="RDXUnitT" id="119"/>
+<Button name="RDXUF120" inherits="RDXUnitT" id="120"/>
+<Button name="RDXUF121" inherits="RDXUnitT" id="121"/>
+<Button name="RDXUF122" inherits="RDXUnitT" id="122"/>
+<Button name="RDXUF123" inherits="RDXUnitT" id="123"/>
+<Button name="RDXUF124" inherits="RDXUnitT" id="124"/>
+<Button name="RDXUF125" inherits="RDXUnitT" id="125"/>
+<Button name="RDXUF126" inherits="RDXUnitT" id="126"/>
+<Button name="RDXUF127" inherits="RDXUnitT" id="127"/>
+<Button name="RDXUF128" inherits="RDXUnitT" id="128"/>
+<Button name="RDXUF129" inherits="RDXUnitT" id="129"/>
+<Button name="RDXUF130" inherits="RDXUnitT" id="130"/>
+<Button name="RDXUF131" inherits="RDXUnitT" id="131"/>
+<Button name="RDXUF132" inherits="RDXUnitT" id="132"/>
+<Button name="RDXUF133" inherits="RDXUnitT" id="133"/>
+<Button name="RDXUF134" inherits="RDXUnitT" id="134"/>
+<Button name="RDXUF135" inherits="RDXUnitT" id="135"/>
+<Button name="RDXUF136" inherits="RDXUnitT" id="136"/>
+<Button name="RDXUF137" inherits="RDXUnitT" id="137"/>
+<Button name="RDXUF138" inherits="RDXUnitT" id="138"/>
+<Button name="RDXUF139" inherits="RDXUnitT" id="139"/>
+<Button name="RDXUF140" inherits="RDXUnitT" id="140"/>
+<Button name="RDXUF141" inherits="RDXUnitT" id="141"/>
+<Button name="RDXUF142" inherits="RDXUnitT" id="142"/>
+<Button name="RDXUF143" inherits="RDXUnitT" id="143"/>
+<Button name="RDXUF144" inherits="RDXUnitT" id="144"/>
+<Button name="RDXUF145" inherits="RDXUnitT" id="145"/>
+<Button name="RDXUF146" inherits="RDXUnitT" id="146"/>
+<Button name="RDXUF147" inherits="RDXUnitT" id="147"/>
+<Button name="RDXUF148" inherits="RDXUnitT" id="148"/>
+<Button name="RDXUF149" inherits="RDXUnitT" id="149"/>
+<Button name="RDXUF150" inherits="RDXUnitT" id="150"/>
+<Button name="RDXUF151" inherits="RDXUnitT" id="151"/>
+<Button name="RDXUF152" inherits="RDXUnitT" id="152"/>
+<Button name="RDXUF153" inherits="RDXUnitT" id="153"/>
+<Button name="RDXUF154" inherits="RDXUnitT" id="154"/>
+<Button name="RDXUF155" inherits="RDXUnitT" id="155"/>
+<Button name="RDXUF156" inherits="RDXUnitT" id="156"/>
+<Button name="RDXUF157" inherits="RDXUnitT" id="157"/>
+<Button name="RDXUF158" inherits="RDXUnitT" id="158"/>
+<Button name="RDXUF159" inherits="RDXUnitT" id="159"/>
+<Button name="RDXUF160" inherits="RDXUnitT" id="160"/>
+<Button name="RDXUF161" inherits="RDXUnitT" id="161"/>
+<Button name="RDXUF162" inherits="RDXUnitT" id="162"/>
+<Button name="RDXUF163" inherits="RDXUnitT" id="163"/>
+<Button name="RDXUF164" inherits="RDXUnitT" id="164"/>
+<Button name="RDXUF165" inherits="RDXUnitT" id="165"/>
+<Button name="RDXUF166" inherits="RDXUnitT" id="166"/>
+<Button name="RDXUF167" inherits="RDXUnitT" id="167"/>
+<Button name="RDXUF168" inherits="RDXUnitT" id="168"/>
+<Button name="RDXUF169" inherits="RDXUnitT" id="169"/>
+<Button name="RDXUF170" inherits="RDXUnitT" id="170"/>
+<Button name="RDXUF171" inherits="RDXUnitT" id="171"/>
+<Button name="RDXUF172" inherits="RDXUnitT" id="172"/>
+<Button name="RDXUF173" inherits="RDXUnitT" id="173"/>
+<Button name="RDXUF174" inherits="RDXUnitT" id="174"/>
+<Button name="RDXUF175" inherits="RDXUnitT" id="175"/>
+<Button name="RDXUF176" inherits="RDXUnitT" id="176"/>
+<Button name="RDXUF177" inherits="RDXUnitT" id="177"/>
+<Button name="RDXUF178" inherits="RDXUnitT" id="178"/>
+<Button name="RDXUF179" inherits="RDXUnitT" id="179"/>
+<Button name="RDXUF180" inherits="RDXUnitT" id="180"/>
+<Button name="RDXUF181" inherits="RDXUnitT" id="181"/>
+<Button name="RDXUF182" inherits="RDXUnitT" id="182"/>
+<Button name="RDXUF183" inherits="RDXUnitT" id="183"/>
+<Button name="RDXUF184" inherits="RDXUnitT" id="184"/>
+<Button name="RDXUF185" inherits="RDXUnitT" id="185"/>
+<Button name="RDXUF186" inherits="RDXUnitT" id="186"/>
+<Button name="RDXUF187" inherits="RDXUnitT" id="187"/>
+<Button name="RDXUF188" inherits="RDXUnitT" id="188"/>
+<Button name="RDXUF189" inherits="RDXUnitT" id="189"/>
+<Button name="RDXUF190" inherits="RDXUnitT" id="190"/>
+<Button name="RDXUF191" inherits="RDXUnitT" id="191"/>
+<Button name="RDXUF192" inherits="RDXUnitT" id="192"/>
+<Button name="RDXUF193" inherits="RDXUnitT" id="193"/>
+<Button name="RDXUF194" inherits="RDXUnitT" id="194"/>
+<Button name="RDXUF195" inherits="RDXUnitT" id="195"/>
+<Button name="RDXUF196" inherits="RDXUnitT" id="196"/>
+<Button name="RDXUF197" inherits="RDXUnitT" id="197"/>
+<Button name="RDXUF198" inherits="RDXUnitT" id="198"/>
+<Button name="RDXUF199" inherits="RDXUnitT" id="199"/>
+<Button name="RDXUF200" inherits="RDXUnitT" id="200"/>
+<!-- END UNITFRAMES POOL -->
+</Ui>

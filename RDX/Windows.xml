@@ -1,0 +1,135 @@
+<!--
+Windows.xml
+RDX5
+
+Basic controls for use with RDX windows.
+-->
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+<!-- RDX UNITFRAME CONTAINER WINDOW TEMPLATE -->
+<Frame name="RDXWindowT" movable="true" virtual="true">
+	<Backdrop name="$parentBkd" bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border">
+		<BackgroundInsets>
+			<AbsInset left="4" right="4" top="4" bottom="4" />
+		</BackgroundInsets>
+		<TileSize><AbsValue val="16"/></TileSize>
+		<EdgeSize><AbsValue val="16"/></EdgeSize>
+	</Backdrop>
+	<Layers>
+		<Layer level="ARTWORK">
+			<Texture name="$parentTitleD1" file="Interface\TradeSkillFrame\UI-TradeSkill-SkillBorder">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset><AbsDimension x="4" y="-17"/></Offset>
+					</Anchor>
+					<Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT">
+						<Offset><AbsDimension x="-4" y="-25"/></Offset>
+					</Anchor>
+				</Anchors>
+				<TexCoords left="0.1" right="1.0" top="0" bottom="0.25"/>
+			</Texture>
+			<Texture name="$parentTitleBkg">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset><AbsDimension x="5" y="-5"/></Offset>
+					</Anchor>
+					<Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT">
+						<Offset><AbsDimension x="-5" y="-21"/></Offset>
+					</Anchor>
+				</Anchors>
+				<Color r="1" g="1" b="1" a="1"/>
+				<Gradient orientation="HORIZONTAL">
+					<MinColor r="1" g="1" b="1" a="1"/>
+					<MaxColor r="0.1" g="0.1" b="0.1" a="1"/>
+				</Gradient>
+			</Texture>
+		</Layer>
+		<Layer level="OVERLAY">
+			<!-- Icon for buff/debuff -->
+			<Texture name="$parentTitleIcon">
+				<Size><AbsDimension x="12" y="12"/></Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset><AbsDimension x="7" y="-6"/></Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+			<!-- Titlebar text content -->
+			<FontString name="$parentTitleText" inherits="VFLFont" justifyH="LEFT" justifyV="CENTER">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset><AbsDimension x="25" y="-5"/></Offset>
+					</Anchor>
+					<Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT">
+						<Offset><AbsDimension x="-5" y="-24"/></Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+		</Layer>
+	</Layers>
+	<Frames>
+		<Button name="$parentI">
+			<Anchors>
+				<Anchor point="TOPLEFT"/>
+				<Anchor point="TOPRIGHT">
+					<Offset><AbsDimension x="-28" y="-24"/></Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnMouseDown>if(this.OnMouseDown) then this:OnMouseDown(arg1); end</OnMouseDown>
+				<OnMouseUp>if(this.OnMouseUp) then this:OnMouseUp(arg1); end</OnMouseUp>
+				<OnEnter>if(this.OnEnter) then this:OnEnter(); end</OnEnter>
+				<OnLeave>if(this.OnLeave) then this:OnLeave(); end</OnLeave>
+			</Scripts>
+		</Button>
+		<Button name="$parentClose" inherits="RDXXBtnT">
+			<Size><AbsDimension x="12" y="12"/></Size>
+			<Anchors>
+				<Anchor point="TOPRIGHT">
+					<Offset><AbsDimension x="-7" y="-6"/></Offset>
+				</Anchor>
+			</Anchors>
+		</Button>
+		<Button name="$parentFilter" inherits="RDXFunnelBtnT">
+			<Size><AbsDimension x="12" y="12"/></Size>
+			<Anchors>
+				<Anchor point="RIGHT" relativeTo="$parentClose" relativePoint="LEFT"/>
+			</Anchors>
+		</Button>
+	</Frames>
+	<Scripts>
+		<OnLoad>RDX.Window.Imbue(this);</OnLoad>
+	</Scripts>
+</Frame>
+<!-- BEGIN WINDOW FRAMEPOOL -->
+<Frame name="RDXWin1" inherits="RDXWindowT" id="1"/>
+<Frame name="RDXWin2" inherits="RDXWindowT" id="2"/>
+<Frame name="RDXWin3" inherits="RDXWindowT" id="3"/>
+<Frame name="RDXWin4" inherits="RDXWindowT" id="4"/>
+<Frame name="RDXWin5" inherits="RDXWindowT" id="5"/>
+<Frame name="RDXWin6" inherits="RDXWindowT" id="6"/>
+<Frame name="RDXWin7" inherits="RDXWindowT" id="7"/>
+<Frame name="RDXWin8" inherits="RDXWindowT" id="8"/>
+<Frame name="RDXWin9" inherits="RDXWindowT" id="9"/>
+<Frame name="RDXWin10" inherits="RDXWindowT" id="10"/>
+<Frame name="RDXWin11" inherits="RDXWindowT" id="11"/>
+<Frame name="RDXWin12" inherits="RDXWindowT" id="12"/>
+<Frame name="RDXWin13" inherits="RDXWindowT" id="13"/>
+<Frame name="RDXWin14" inherits="RDXWindowT" id="14"/>
+<Frame name="RDXWin15" inherits="RDXWindowT" id="15"/>
+<Frame name="RDXWin16" inherits="RDXWindowT" id="16"/>
+<Frame name="RDXWin17" inherits="RDXWindowT" id="17"/>
+<Frame name="RDXWin18" inherits="RDXWindowT" id="18"/>
+<Frame name="RDXWin19" inherits="RDXWindowT" id="19"/>
+<Frame name="RDXWin20" inherits="RDXWindowT" id="20"/>
+<Frame name="RDXWin21" inherits="RDXWindowT" id="21"/>
+<Frame name="RDXWin22" inherits="RDXWindowT" id="22"/>
+<Frame name="RDXWin23" inherits="RDXWindowT" id="23"/>
+<Frame name="RDXWin24" inherits="RDXWindowT" id="24"/>
+<Frame name="RDXWin25" inherits="RDXWindowT" id="25"/>
+<Frame name="RDXWin26" inherits="RDXWindowT" id="26"/>
+<Frame name="RDXWin27" inherits="RDXWindowT" id="27"/>
+<Frame name="RDXWin28" inherits="RDXWindowT" id="28"/>
+<Frame name="RDXWin29" inherits="RDXWindowT" id="29"/>
+<Frame name="RDXWin30" inherits="RDXWindowT" id="30"/>
+<!-- END WINDOW FRAMEPOOL -->
+</Ui>

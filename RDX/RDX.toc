@@ -1,0 +1,8 @@
+## Interface: 11200
+## Title: RDX
+## Notes: RDX is Raid Data Exchange - a tool for acquiring, filtering, and visualizing information about your raid team.
+## Author: Bill Johnson (Venificus of Eredar server)
+## Version: 5
+## RequiredDeps: VFL
+## SavedVariables: RDX5Data
+RDX.xml

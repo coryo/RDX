@@ -1,0 +1,225 @@
+<!--
+Encounters.xml
+RDX5
+
+Widgets dealing with the encounter frame.
+-->
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+<!-- ENCOUNTER PANE INTERACTION BUTTON TEMPLATES -->
+<Button name="RDXPlayStopBtnT" virtual="true">
+	<NormalTexture name="$parentBtnTex" file="Interface\Addons\RDX\Skin\play"/>
+	<HighlightTexture name="$parentBtnHlt" file="Interface\Addons\RDX\Skin\play"/>
+	<Scripts>
+		<OnLoad>
+			this.SetPlay = function(self)
+				getglobal(self:GetName().."BtnTex"):SetTexture("Interface\\Addons\\RDX\\Skin\\play");
+				getglobal(self:GetName().."BtnHlt"):SetTexture("Interface\\Addons\\RDX\\Skin\\play");
+				getglobal(self:GetName().."BtnHlt"):SetVertexColor(0,0.8,0);
+			end;
+			this.SetStop = function(self)
+				getglobal(self:GetName().."BtnTex"):SetTexture("Interface\\Addons\\RDX\\Skin\\stop");
+				getglobal(self:GetName().."BtnHlt"):SetTexture("Interface\\Addons\\RDX\\Skin\\stop");
+				getglobal(self:GetName().."BtnHlt"):SetVertexColor(0.8,0,0);
+			end;
+			this:SetPlay();
+		</OnLoad>
+	</Scripts>
+</Button>
+<Button name="RDXSyncBtnT" virtual="true">
+
+</Button>
+<!-- TIMER WIDGET -->
+<Button name="RDXTimerWidgetT" virtual="true">
+	<Size><AbsDimension x="80" y="20"/></Size>
+	<Layers>
+		<Layer level="OVERLAY">
+			<FontString name="$parentT1" justifyH="RIGHT" inherits="VFLFont2" text="0:00">
+				<Anchors>
+					<Anchor point="TOPLEFT"/>
+				</Anchors>
+			</FontString>
+			<FontString name="$parentT2" justifyH="LEFT" inherits="VFLFont2" text="00">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parentT1" relativePoint="RIGHT"/>
+				</Anchors>
+			</FontString>
+		</Layer>
+	</Layers>
+	<Scripts>
+		<OnLoad>RDX.TimerWidget.Imbue(this);</OnLoad>
+	</Scripts>
+</Button>
+<!-- END TIMER WIDGET -->
+<Frame name="RDXEncPane" inherits="VFLTitledWinT" parent="UIParent" frameStrata="MEDIUM" hidden="true" movable="true">
+	<Size><AbsDimension x="220" y="54"/></Size>
+	<Anchors><Anchor point="TOP"/></Anchors>
+	<Frames>
+		<Frame name="$parentTimer" inherits="RDXTimerWidgetT">
+			<Anchors>
+				<Anchor point="TOPLEFT"><Offset><AbsDimension x="5" y="-27"/></Offset></Anchor>
+			</Anchors>
+			<Scripts><OnUpdate>this:SetTime(RDX.encTimer:Get());</OnUpdate></Scripts>
+		</Frame>
+		<Button name="$parentStartStop" inherits="RDXPlayStopBtnT">
+			<Size><AbsDimension x="20" y="20"/></Size>
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentTimer" relativePoint="RIGHT">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>RDX.ToggleEncounterTimer();</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(UIParent, "ANCHOR_BOTTOMRIGHT");
+					GameTooltip:SetText("|cffffc900Play / Stop button\n\n|rClick to Start / Stop Current Encounter.  For raid leaders / assists, this will start/stop the encounter for the entire raid.", 1.0, 1.0, 1.0, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide();
+				</OnLeave>
+			</Scripts>
+		</Button>
+<!--
+		<Button name="$parentMark">
+			<Size><AbsDimension x="20" y="20"/></Size>
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentStartStop" relativePoint="RIGHT"/>
+			</Anchors>
+			<NormalTexture file="Interface\Addons\RDX\Skin\mark"/>
+			<HighlightTexture name="$parentBtnHlt" file="Interface\Addons\RDX\Skin\mark"/>
+			<Scripts>
+				<OnLoad>getglobal(this:GetName().."BtnHlt"):SetVertexColor(0.3,0.7,0.2);</OnLoad>
+			</Scripts>
+		</Button>
+-->
+		<Button name="$parentSync">
+			<Size><AbsDimension x="18" y="18"/></Size>
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentStartStop" relativePoint="RIGHT">
+				</Anchor>
+			</Anchors>
+			<NormalTexture file="Interface\Addons\RDX\Skin\sync"/>
+			<HighlightTexture name="$parentBtnHlt" file="Interface\Addons\RDX\Skin\sync"/>
+			<Scripts>
+				<OnLoad>
+					getglobal(this:GetName().."BtnHlt"):SetVertexColor(0.2,0.4,0.8);
+					this:RegisterForClicks("LeftButtonUp", "MiddleButtonUp", "RightButtonUp");
+				</OnLoad>
+				<OnClick>RDX.Encounter.SyncButtonOnClick();</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(UIParent, "ANCHOR_BOTTOMRIGHT");
+					GameTooltip:SetText("|cffffc900Sync Button\n\n|r|cff0000ffBlue|r = Synced\nWhite = Not Synced\n\nLeft Cick = Broadcast Encounter\nRight Click = Toggle Sync", 1.0, 1.0, 1.0, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide();
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<Button name="$parentAnnounce">
+			<Size>
+				<AbsDimension x="18" y="18"/>
+			</Size>
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentSync" relativePoint="RIGHT">
+				</Anchor>
+			</Anchors>
+			<NormalTexture file="Interface\Addons\RDX\Skin\speaker"/>
+			<HighlightTexture name="$parentBtnHlt" file="Interface\Addons\RDX\Skin\speaker"/>
+			<Scripts>
+				<OnLoad>
+					getglobal(this:GetName().."BtnHlt"):SetVertexColor(0.88,0.88,0.08);
+					this:RegisterForClicks("LeftButtonUp", "MiddleButtonUp", "RightButtonUp");
+				</OnLoad>
+				<OnClick>RDX.Encounter.AnnounceButtonOnClick(this);</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(UIParent, "ANCHOR_BOTTOMRIGHT");
+					GameTooltip:SetText("|cffffc900Announce Button\n\nYellow|r indicates you will announce encounter warnings to the raid.  Click to toggle.", 1.0, 1.0, 1.0, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide();
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<Button name="$parentSave">
+			<Size>
+				<AbsDimension x="18" y="18"/>
+			</Size>
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentAnnounce" relativePoint="RIGHT">
+				</Anchor>
+			</Anchors>
+			<NormalTexture file="Interface\Addons\RDX\Skin\disk2"/>
+			<HighlightTexture name="$parentBtnHlt" file="Interface\Addons\RDX\Skin\disk2"/>
+			<Scripts>
+				<OnLoad>
+					getglobal(this:GetName().."BtnHlt"):SetVertexColor(0.4,0.75,0.35);
+					this:RegisterForClicks("LeftButtonUp", "MiddleButtonUp", "RightButtonUp");
+				</OnLoad>
+				<OnEnter>
+					GameTooltip:SetOwner(UIParent, "ANCHOR_BOTTOMRIGHT");
+					GameTooltip:SetText("|cffffc900Save Button\n\n|r|cff00ff00Green|r indicates your window settings will be saved per-encounter.  White indicates you will always use your default settings for everything.  Left click to toggle.\n\nRight click to reload your UI.", 1.0, 1.0, 1.0, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide();
+				</OnLeave>
+				<OnClick>RDX.Encounter.SaveButtonOnClick(this);</OnClick>
+			</Scripts>
+		</Button>
+		<Button name="$parentRaid">
+			<Size>
+				<AbsDimension x="18" y="18"/>
+			</Size>
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentSave" relativePoint="RIGHT">
+				</Anchor>
+			</Anchors>
+			<NormalTexture file="Interface\Addons\RDX\Skin\sword"/>
+			<HighlightTexture name="$parentBtnHlt" file="Interface\Addons\RDX\Skin\sword"/>
+			<Scripts>
+				<OnLoad>
+					getglobal(this:GetName().."BtnHlt"):SetVertexColor(0.4,0.75,0.35);
+					this:RegisterForClicks("LeftButtonUp", "MiddleButtonUp", "RightButtonUp");
+				</OnLoad>
+				<OnClick>RDX.Raid.RaidButtonOnClick(this);</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(UIParent, "ANCHOR_BOTTOMRIGHT");
+					GameTooltip:SetText("|cffffc900Raid Button\n\n|rLeft Click = Join Raid\nShift Left Click = Set Invite Keyword\nRight Click = Toggle Auto-Invite\nShift Right Click = Create Guild Raid", 1.0, 1.0, 1.0, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide();
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<Button name="$parentMenu">
+			<Size>
+				<AbsDimension x="18" y="18"/>
+			</Size>
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentRaid" relativePoint="RIGHT"/>
+			</Anchors>
+			<NormalTexture file="Interface\Addons\RDX\Skin\menu"/>
+			<HighlightTexture name="$parentBtnHlt" file="Interface\Addons\RDX\Skin\menu"/>
+			<Scripts>
+				<OnLoad>getglobal(this:GetName().."BtnHlt"):SetVertexColor(0.0,0.6,0.6);</OnLoad>
+				<OnClick>RDX.MenuShow(this);</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(UIParent, "ANCHOR_BOTTOMRIGHT");
+					GameTooltip:SetText("|cffffc900Menu Button\n\n|rClick to access main RDX Menu.", 1.0, 1.0, 1.0, 1, 1);
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide();
+				</OnLeave>
+			</Scripts>
+		</Button>
+	</Frames>
+	<Scripts>
+		<OnLoad>
+			getglobal(this:GetName().."TitleBkg"):Hide();
+		</OnLoad>
+	</Scripts>
+</Frame>
+</Ui>

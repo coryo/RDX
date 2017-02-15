@@ -1,0 +1,7 @@
+## Interface: 11200
+## Title: RDX - Windows Module
+## Notes: Custom status windows for RDX.
+## Author: Bill Johnson (Venificus of Eredar server)
+## Version: 1
+## RequiredDeps: RDX
+RDXM_Windows.xml

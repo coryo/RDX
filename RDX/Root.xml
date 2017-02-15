@@ -1,0 +1,33 @@
+<!--
+Root.xml
+RDX5
+
+Core XML components of RDX5
+-->
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+<!-- Root frame -->
+<Frame name="RDXRoot">
+	<Scripts>
+		<OnEvent>
+			RDXEvent:RaiseByName(event)
+		</OnEvent>
+	</Scripts>
+</Frame>
+<!-- Common UI buttons -->
+<Button name="RDXXBtnT" virtual="true">
+	<NormalTexture file="Interface\Addons\RDX\Skin\x"/>
+	<HighlightTexture name="$parentBtnHlt" file="Interface\Addons\RDX\Skin\x"/>
+	<Scripts>
+		<OnClick>if this.OnClick then this:OnClick(); end</OnClick>
+		<OnLoad>getglobal(this:GetName().."BtnHlt"):SetVertexColor(0.8,0,0);</OnLoad>
+	</Scripts>
+</Button>
+<Button name="RDXFunnelBtnT" virtual="true">
+	<NormalTexture file="Interface\Addons\RDX\Skin\funnel"/>
+	<HighlightTexture name="$parentBtnHlt" file="Interface\Addons\RDX\Skin\funnel"/>
+	<Scripts>
+		<OnClick>if this.OnClick then this:OnClick(); end</OnClick>
+		<OnLoad>getglobal(this:GetName().."BtnHlt"):SetVertexColor(0,0.8,0);</OnLoad>
+	</Scripts>
+</Button>
+</Ui>
