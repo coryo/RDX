@@ -23,6 +23,8 @@ function RDX.UnitFrame.Imbue(f)
 	f.bar1:SetMinMaxValues(0,1); f.bar2:SetMinMaxValues(0,1); f.bar3:SetMinMaxValues(0,1);
 	f.bar3:SetFrameLevel(f.bar1:GetFrameLevel() - 1)
     f.bar3:SetPoint("TOPLEFT", f.bar1, "TOPLEFT");
+	f.bar3:SetAlpha(0.7)
+	f.bar3:SetStatusBarTexture("Interface\\Tooltips\\UI-Tooltip-Background")
 	f.icon = {};
 	for i=1,4 do
 		f.icon[i] = getglobal(n.."I"..i);
