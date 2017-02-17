@@ -374,6 +374,11 @@ function RDX.Unit:FracHealth()
 	if(b<1) or (a<0) then return 0; end
 	return a/b;
 end
+function RDX.Unit:FracHealthWithIncHeals()
+	local a,b = UnitHealth(self.uid) + self.incheal, UnitHealthMax(self.uid);
+	if(b<1) or (a<0) then return 0; end
+	return a/b;
+end
 function RDX.Unit:MissingHealth()
 	return UnitHealthMax(self.uid) - UnitHealth(self.uid);
 end

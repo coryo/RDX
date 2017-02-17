@@ -115,7 +115,7 @@ function RDXM.Window:SetDescriptor(desc)
 	self.filterFunc = RDX.MakeFilterFromDescriptor(desc.filterDesc);
 	-- Load sort metadata
 	self.sortSortsHP = nil; self.sortSortsMana = nil; self.sortFunc = nil; self.sortDeadBottom = nil;
-	if(desc.cfg.sort == 2) then -- Somewhat kludgy; map sort functions
+	if(desc.cfg.sort == 2 or desc.cfg.sort == 5) then -- Somewhat kludgy; map sort functions
 		self.sortSortsHP = true;
 	elseif(desc.cfg.sort == 3) then
 		self.sortSortsMana = true;
@@ -249,7 +249,11 @@ function RDXM.Window:OnUnitIncHeal(un, u)
 	if not self.set:GetMember(un) then return; end
 	local healvalue = RDXAce.HealComm:getHeal(u:GetProperName())
 	u.incheal = healvalue
-	self:TriggerUpdate(1);
+	if(self.sortSortsHP) then
+		self:TriggerUpdate(2);
+	else
+		self:TriggerUpdate(1);
+	end
 end
 
 -- Respond to a UNIT_MANA event

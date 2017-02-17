@@ -302,7 +302,12 @@ function RDXM.WindowDesc:GenSortFuncBody()
 	-- cfg.reverse TRUE = reversed
 	local direction = "<";
 	if cfg.reverse then direction = ">"; end
+
+	if (cfg.sort==5) then statistic="FracHealthWithIncHeals"; end
+	
 	str = str .. "return (u1:"..statistic.."() " .. direction .. " u2:"..statistic.."());";
+	
+
 	-- If not already sorting alphabetically, use it as a secondary sort
 	if cfg.sort ~= 4 then 
 		str = self:GenSortFuncLDSection() .. "if (u1:"..statistic.."() ~= u2:"..statistic.."()) then "..str.." else return (u1:GetProperName() < u2:GetProperName()); end"
