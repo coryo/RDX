@@ -324,6 +324,7 @@ function RDX.Unit:new(n)
 	x.valid = false;
 	x.lastContact = 0;
 	x.incheal = 0;
+	x.range = 0;
 	-- Generate flagsets; link them with the flag multiplexers.
 	x.flagsets = {};
 	for i=1,4 do x.flagsets[i] = RDX.FlagSet:new(RDX.fm[i], x); end
@@ -392,6 +393,9 @@ function RDX.Unit:IsDead()
 end
 function RDX.Unit:IsFollowDistance()
 	return CheckInteractDistance(self.uid, 4);
+end
+function RDX.Unit:Is40Yards()
+	if self.range <= 39 then return true else return false end;
 end
 ---- MP data
 function RDX.Unit:Mana()
@@ -799,6 +803,7 @@ end
 RDX.SigUnitHealth = VFL.Signal:new();
 RDX.SigUnitMana = VFL.Signal:new();
 RDX.SigUnitIncHeal = VFL.Signal:new();
+RDX.SigUnit40Yards = VFL.Signal:new();
 
 function RDX.DB.OnUnitHealth(uid)
 	if not IsRaidUnit(uid) then return; end
@@ -818,6 +823,22 @@ function RDX.DB.OnUnitMana(uid)
 	if not IsRaidUnit(uid) then return; end
 	local n = UIDtoN(uid);
 	RDX.SigUnitMana:Raise(n, RDX.GetUnitByNumber(n));
+end
+
+function RDX.DB.RangeHandle(uid, range, lastseen, confirmed)
+	if range == 100 then return end
+	for i=1, 40 do
+		if uid == RDX.unit[i].uid then
+			-- if confirmed then
+			RDX.unit[i].range = range;
+			-- else
+			-- 	RDX.unit[i].range = 100;
+			-- end
+			local n = UIDtoN(uid);
+			RDX.SigUnit40Yards:Raise(n, RDX.GetUnitByNumber(n));
+			break
+		end
+	end
 end
 
 ------------------------------------------------------------
@@ -847,4 +868,6 @@ function RDX.DB.Init()
 	RDXEvent:Bind("UNIT_MANA", nil, function() RDX.DB.OnUnitMana(arg1); end);
 	RDXEvent:Bind("UNIT_MANA_MAX", nil, function() RDX.DB.OnUnitMana(arg1); end);
 	RDXAce:RegisterEvent("HealComm_Healupdate", RDX.DB.OnUnitIncHeal);
+	RDXAce:RegisterEvent("NotProximityLib_RangeUpdate", RDX.DB.RangeHandle);
+	RDXAce:RegisterEvent("NotProximityLib_WorldRangeUpdate", RDX.DB.RangeHandle);
 end

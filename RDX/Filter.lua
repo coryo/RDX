@@ -280,9 +280,9 @@ function RDX.FilterDesc:GenFilterBody()
 		body = body .. "if not unit:IsSynced() then return nil; end "
 	end
 	if cfg.followdistance == 2 then
-		body = body .. "if not unit:IsFollowDistance() then return nil; end "
+		body = body .. "if not unit:Is40Yards() then return nil; end "
 	elseif cfg.followdistance == 3 then
-		body = body .. "if unit:IsFollowDistance() then return nil; end "
+		body = body .. "if unit:Is40Yards() then return nil; end "
 	end
 	-- If filter by hp/mana...
 	if cfg.hm then
