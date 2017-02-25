@@ -394,8 +394,8 @@ end
 function RDX.Unit:IsFollowDistance()
 	return CheckInteractDistance(self.uid, 4);
 end
-function RDX.Unit:Is40Yards()
-	if self.range <= 39 then return true else return false end;
+function RDX.Unit:InRange(yards)
+	if self.range <= yards then return true else return false end;
 end
 ---- MP data
 function RDX.Unit:Mana()
@@ -803,7 +803,7 @@ end
 RDX.SigUnitHealth = VFL.Signal:new();
 RDX.SigUnitMana = VFL.Signal:new();
 RDX.SigUnitIncHeal = VFL.Signal:new();
-RDX.SigUnit40Yards = VFL.Signal:new();
+RDX.SigUnitRange = VFL.Signal:new();
 
 function RDX.DB.OnUnitHealth(uid)
 	if not IsRaidUnit(uid) then return; end
@@ -826,16 +826,12 @@ function RDX.DB.OnUnitMana(uid)
 end
 
 function RDX.DB.RangeHandle(uid, range, lastseen, confirmed)
-	if range == 100 then return end
+	if event ~= "NotProximityLib_WorldRangeUpdate" then return end;
 	for i=1, 40 do
 		if uid == RDX.unit[i].uid then
-			-- if confirmed then
 			RDX.unit[i].range = range;
-			-- else
-			-- 	RDX.unit[i].range = 100;
-			-- end
 			local n = UIDtoN(uid);
-			RDX.SigUnit40Yards:Raise(n, RDX.GetUnitByNumber(n));
+			RDX.SigUnitRange:Raise(n, RDX.GetUnitByNumber(n));
 			break
 		end
 	end

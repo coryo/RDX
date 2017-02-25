@@ -209,7 +209,7 @@ function RDXM.Window:BindEvents()
 	end
 	if(self.filterFiltersFollowDistance) then
 		RDX.SigUnitFollowDistance:Connect(self, RDXM.Window.OnUnitFollowDistanceChange);
-		RDX.SigUnit40Yards:Connect(self, RDXM.Window.OnUnitRange);
+		RDX.SigUnitRange:Connect(self, RDXM.Window.OnUnitRange);
 	end
 	RDX.SigUnitIdentitiesChanged:Connect(self, RDXM.Window.OnIdentityChange);
 end
@@ -221,7 +221,7 @@ function RDXM.Window:UnbindEvents()
 	RDX.SigUnitHealth:DisconnectObject(self);
 	RDX.SigUnitIncHeal:DisconnectObject(self);
 	RDX.SigUnitMana:DisconnectObject(self);
-	RDX.SigUnit40Yards:DisconnectObject(self);
+	RDX.SigUnitRange:DisconnectObject(self);
 end
 
 --------------------------------
@@ -259,10 +259,7 @@ function RDXM.Window:OnUnitIncHeal(un, u)
 end
 
 function RDXM.Window:OnUnitRange(un, u)
-	-- DEFAULT_CHAT_FRAME:AddMessage("OnUnitRange")
-	if not self then
-		return;
-	end
+	if not self then return end
 	if (self.filterFiltersFollowDistance) then
 		-- Reexamine the unit
 		self:Examine(un, u);

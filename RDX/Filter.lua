@@ -68,6 +68,7 @@ function RDX.FilterDesc:SetDefaults()
 	cfg.cg = false;
 	cfg.hm = false;
 	cfg.dead = 1; cfg.desync = 1; cfg.followdistance = 1;
+	cfg.yards = 40;
 end
 
 -- Show the configuration dialog for this filter
@@ -142,6 +143,9 @@ function RDX.FilterDesc:ShowConfigDialog(okCallback, cancelCallback)
 		dlg:Hide();
 		if(okCallback) then okCallback(self); end
 	end
+	if(cfg.yards) then
+		getglobal(dn.."Yards"):SetText(cfg.yards);
+	end
 end
 
 -- Read the configuration dialog for this filter
@@ -201,6 +205,7 @@ function RDX.FilterDesc:ReadConfigDialog()
 	cfg.dead = dlg.RGDead:Get();
 	cfg.desync = dlg.RGDesync:Get();
 	cfg.followdistance = dlg.RGFollow:Get();
+	cfg.yards = getglobal(dn.."Yards"):GetNumber();
 end
 
 --------------------------------------
@@ -280,9 +285,9 @@ function RDX.FilterDesc:GenFilterBody()
 		body = body .. "if not unit:IsSynced() then return nil; end "
 	end
 	if cfg.followdistance == 2 then
-		body = body .. "if not unit:Is40Yards() then return nil; end "
+		body = body .. "if not unit:InRange("..cfg.yards..") then return nil; end "
 	elseif cfg.followdistance == 3 then
-		body = body .. "if unit:Is40Yards() then return nil; end "
+		body = body .. "if unit:InRange("..cfg.yards..") then return nil; end "
 	end
 	-- If filter by hp/mana...
 	if cfg.hm then

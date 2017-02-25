@@ -389,7 +389,7 @@ Filter configuration screen
 		<!-- END FILTER BY HP/MANA -->
 		<!-- OTHER FILTERS -->
 		<Frame name="$parentOtherGB" inherits="VFLGroupT">
-			<Size><AbsDimension x="350" y="73"/></Size>
+			<Size><AbsDimension x="350" y="90"/></Size>
 			<Anchors>
 				<Anchor point="TOPLEFT" relativeTo="$parentList" relativePoint="BOTTOMLEFT">
 				</Anchor>
@@ -492,7 +492,7 @@ Filter configuration screen
 				</Anchor>
 			</Anchors>
 			<Scripts>
-				<OnShow>this:Setup("28 Yards:");</OnShow>
+				<OnShow>this:Setup("Range:");</OnShow>
 			</Scripts>
 		</Frame>
 		<Frame name="$parentFollowRB1" inherits="VFLRadioT" id="1">
@@ -525,6 +525,26 @@ Filter configuration screen
 				<OnShow>this:Setup(RDXFilterConfig.RGFollow, "Filter out");</OnShow>
 			</Scripts>
 		</Frame>
+
+
+		<Frame name="$parentYardsLbl" inherits="VFLStaticT">
+			<Size><AbsDimension x="80" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentFollowLbl" relativePoint="BOTTOMLEFT">
+					<Offset><AbsDimension x="4" y="0"/></Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup("Yards:");</OnShow>
+			</Scripts>
+		</Frame>
+		<EditBox name="$parentYards" inherits="VFLEditT">
+			<Size><AbsDimension x="48" y="24"/></Size>
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentYardsLbl" relativePoint="RIGHT"/>
+			</Anchors>
+		</EditBox>
+
 		<!-- END OTHER FILTERS -->
 		<!-- OK/CANCEL -->
 		<Button name="$parentCancel" inherits="VFLCancelBtnT" text="Cancel">
