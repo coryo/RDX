@@ -811,28 +811,38 @@ function RDX.DB.OnUnitHealth(uid)
 	RDX.SigUnitHealth:Raise(n, RDX.GetUnitByNumber(n));
 end
 
-function RDX.DB.OnUnitIncHeal(target)
-	local unit = RDX.GetUnitByName(string.lower(target))
-
-	if not unit or not IsRaidUnit(unit.uid) then return; end
-	local n = UIDtoN(unit.uid);
-	RDX.SigUnitIncHeal:Raise(n, unit);
-end
-
 function RDX.DB.OnUnitMana(uid)
 	if not IsRaidUnit(uid) then return; end
 	local n = UIDtoN(uid);
 	RDX.SigUnitMana:Raise(n, RDX.GetUnitByNumber(n));
 end
 
-function RDX.DB.RangeHandle(uid, range, lastseen, confirmed)
-	if event ~= "NotProximityLib_WorldRangeUpdate" then return end;
-	for i=1, 40 do
-		if uid == RDX.unit[i].uid then
-			RDX.unit[i].range = range;
-			local n = UIDtoN(uid);
-			RDX.SigUnitRange:Raise(n, RDX.GetUnitByNumber(n));
-			break
+-- HealComm events
+function RDX.DB.OnUnitIncHeal(target)
+	local unit = RDX.GetUnitByName(string.lower(target))
+	if not unit or not IsRaidUnit(unit.uid) then return; end
+	local n = UIDtoN(unit.uid);
+	RDX.SigUnitIncHeal:Raise(n, unit);
+end
+
+-- NotProximityLib events
+function RDX.DB.OnUnitRange(uid, range, lastseen, confirmed)
+	if not IsRaidUnit(uid) then return; end
+	local n = UIDtoN(uid);
+	local unit = RDX.GetUnitByNumber(n);
+
+	if (RDXAce.NotProximity.v.instance == "none" or RDXAce.NotProximity.v.instance == "pvp") then
+		if event == "NotProximityLib_WorldRangeUpdate" then
+			unit.range = range;
+			RDX.SigUnitRange:Raise(n, unit);
+		end
+	elseif event == "NotProximityLib_RangeUpdate" then
+		if confirmed then
+			unit.range = range;
+			RDX.SigUnitRange:Raise(n, unit);
+		else
+			unit.range = 100;
+			RDX.SigUnitRange:Raise(n, unit);
 		end
 	end
 end
@@ -864,6 +874,6 @@ function RDX.DB.Init()
 	RDXEvent:Bind("UNIT_MANA", nil, function() RDX.DB.OnUnitMana(arg1); end);
 	RDXEvent:Bind("UNIT_MANA_MAX", nil, function() RDX.DB.OnUnitMana(arg1); end);
 	RDXAce:RegisterEvent("HealComm_Healupdate", RDX.DB.OnUnitIncHeal);
-	RDXAce:RegisterEvent("NotProximityLib_RangeUpdate", RDX.DB.RangeHandle);
-	RDXAce:RegisterEvent("NotProximityLib_WorldRangeUpdate", RDX.DB.RangeHandle);
+	RDXAce:RegisterEvent("NotProximityLib_RangeUpdate", RDX.DB.OnUnitRange);
+	RDXAce:RegisterEvent("NotProximityLib_WorldRangeUpdate", RDX.DB.OnUnitRange);
 end
