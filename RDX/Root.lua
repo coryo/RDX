@@ -5,6 +5,14 @@
 -- Event dispatcher, core simple functions, loaded before all other scripts
 --
 
+RDXAce = AceLibrary("AceAddon-2.0"):new("AceEvent-2.0")
+
+function RDXAce:OnInitialize()
+	VFL.debug("RDX Ace: OnInitialize()")
+	self.HealComm = AceLibrary("HealComm-1.0")
+	self.NotProximity = AceLibrary("NotProximityLib-1.0")
+end
+
 VFL.debug("[RDX5] Loading Root.lua", 2);
 
 RDX = RegisterVFLModule({
@@ -18,11 +26,6 @@ RDX.Version = 5;
 RDX.Release = 4;
 RDX.Beta = nil;
 RDX.DataVersion = 12;
-
-RDXAce = AceLibrary("AceAddon-2.0"):new("AceEvent-2.0")
-RDXAce.HealComm = AceLibrary("HealComm-1.0")
-RDXAce.NotProximity = AceLibrary("NotProximityLib-1.0")
-
 
 ----------------------------
 -- KEYBINDING NAMES
