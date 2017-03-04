@@ -33,6 +33,10 @@ Serves as the main processing hub for WoW events for all VFL mods.
 	<FontHeight><AbsValue val="10"/></FontHeight>
 	<Color r="1.0" g="1.0" b="1.0"/>
 </FontString>
+<FontString name="VFLFontSmallLuna" inherits="MasterFont" font="Interface\Addons\VFL\Fonts\Luna.ttf" virtual="true">
+	<FontHeight><AbsValue val="10"/></FontHeight>
+	<Color r="1.0" g="1.0" b="1.0"/>
+</FontString>
 <FontString name="VFLFontMed" inherits="MasterFont" font="Interface\Addons\VFL\Fonts\framd.ttf" virtual="true">
 	<FontHeight><AbsValue val="11"/></FontHeight>
 	<Color r="1.0" g="1.0" b="1.0"/>

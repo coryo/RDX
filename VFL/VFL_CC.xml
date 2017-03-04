@@ -32,12 +32,12 @@ Reusable components for consistent UI design.
 	TITLE BAR (Height 24)	
 -->
 <Frame name="VFLWinT" toplevel="true" parent="UIParent" virtual="true">
-	<Backdrop name="$parentBkd" bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border">
-		<BackgroundInsets>
+	<Backdrop name="$parentBkd" bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\Buttons\BLACK8X8">
+		<!--<BackgroundInsets>
 			<AbsInset left="4" right="4" top="4" bottom="4" />
-		</BackgroundInsets>
+		</BackgroundInsets>-->
 		<TileSize><AbsValue val="16"/></TileSize>
-		<EdgeSize><AbsValue val="16"/></EdgeSize>
+		<EdgeSize><AbsValue val="2"/></EdgeSize>
 	</Backdrop>
 	<Layers>
 		<Layer level="ARTWORK">
