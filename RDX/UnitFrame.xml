@@ -8,7 +8,7 @@ Includes statusbars and appropriate highlights/icons.
 -->
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
 <StatusBar name="PercentBarT" enableMouse="false" enableKeyboard="false" virtual="true">
-	<BarTexture file="Interface\Addons\RDX\Skin\StatusBar">
+	<BarTexture file="Interface\Addons\RDX\media\textures\bar\Luna">
 	</BarTexture>
 	<Scripts>
 		<OnLoad>this:SetMinMaxValues(0,1); this:SetValue(0); this:SetFrameLevel(2);</OnLoad>
@@ -35,9 +35,9 @@ Includes statusbars and appropriate highlights/icons.
 	<HighlightTexture name="$parentBtnHlt" file="Interface\QuestFrame\UI-QuestTitleHighlight" alphaMode="ADD" setAllPoints="true"/>
 	<Layers>
 		<Layer level="FOREGROUND">
-			<FontString name="$parentTxt1" inherits="VFLFontSmall" justifyH="LEFT" justifyV="CENTER"/>
-			<FontString name="$parentTxt2" inherits="VFLFontSmall" justifyH="RIGHT" justifyV="CENTER"/>
-			<FontString name="$parentTxt3" inherits="VFLFontSmall" justifyH="LEFT" justifyV="CENTER"/>
+			<FontString name="$parentTxt1" inherits="VFLFontSmallLuna" justifyH="LEFT" justifyV="CENTER"/>
+			<FontString name="$parentTxt2" inherits="VFLFontSmallLuna" justifyH="RIGHT" justifyV="CENTER"/>
+			<FontString name="$parentTxt3" inherits="VFLFontSmallLuna" justifyH="LEFT" justifyV="CENTER"/>
 			<Texture name="$parentHlt" hidden="true" setAllPoints="true">
 				<Color r="1" g="1" b="1" a="1"/>
 			</Texture>

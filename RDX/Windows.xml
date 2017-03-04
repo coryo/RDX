@@ -7,33 +7,33 @@ Basic controls for use with RDX windows.
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
 <!-- RDX UNITFRAME CONTAINER WINDOW TEMPLATE -->
 <Frame name="RDXWindowT" movable="true" virtual="true">
-	<Backdrop name="$parentBkd" bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border">
-		<BackgroundInsets>
+	<Backdrop name="$parentBkd" bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\Buttons\BLACK8X8">
+		<!--<BackgroundInsets>
 			<AbsInset left="4" right="4" top="4" bottom="4" />
-		</BackgroundInsets>
+		</BackgroundInsets>-->
 		<TileSize><AbsValue val="16"/></TileSize>
 		<EdgeSize><AbsValue val="16"/></EdgeSize>
 	</Backdrop>
 	<Layers>
 		<Layer level="ARTWORK">
-			<Texture name="$parentTitleD1" file="Interface\TradeSkillFrame\UI-TradeSkill-SkillBorder">
+			<!--<Texture name="$parentTitleD1" file="Interface\Buttons\WHITE8X8">
 				<Anchors>
 					<Anchor point="TOPLEFT">
-						<Offset><AbsDimension x="4" y="-17"/></Offset>
+						<Offset><AbsDimension x="2" y="-17"/></Offset>
 					</Anchor>
 					<Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT">
-						<Offset><AbsDimension x="-4" y="-25"/></Offset>
+						<Offset><AbsDimension x="-2" y="-25"/></Offset>
 					</Anchor>
 				</Anchors>
 				<TexCoords left="0.1" right="1.0" top="0" bottom="0.25"/>
-			</Texture>
+			</Texture>-->
 			<Texture name="$parentTitleBkg">
 				<Anchors>
 					<Anchor point="TOPLEFT">
-						<Offset><AbsDimension x="5" y="-5"/></Offset>
+						<Offset><AbsDimension x="1" y="-1"/></Offset>
 					</Anchor>
 					<Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT">
-						<Offset><AbsDimension x="-5" y="-21"/></Offset>
+						<Offset><AbsDimension x="-1" y="-15"/></Offset>
 					</Anchor>
 				</Anchors>
 				<Color r="1" g="1" b="1" a="1"/>
@@ -46,21 +46,21 @@ Basic controls for use with RDX windows.
 		<Layer level="OVERLAY">
 			<!-- Icon for buff/debuff -->
 			<Texture name="$parentTitleIcon">
-				<Size><AbsDimension x="12" y="12"/></Size>
+				<Size><AbsDimension x="9" y="9"/></Size>
 				<Anchors>
 					<Anchor point="TOPLEFT">
-						<Offset><AbsDimension x="7" y="-6"/></Offset>
+						<Offset><AbsDimension x="0" y="0"/></Offset>
 					</Anchor>
 				</Anchors>
 			</Texture>
 			<!-- Titlebar text content -->
-			<FontString name="$parentTitleText" inherits="VFLFont" justifyH="LEFT" justifyV="CENTER">
+			<FontString name="$parentTitleText" inherits="VFLFont" justifyH="LEFT" justifyV="TOP">
 				<Anchors>
 					<Anchor point="TOPLEFT">
-						<Offset><AbsDimension x="25" y="-5"/></Offset>
+						<Offset><AbsDimension x="19" y="0"/></Offset>
 					</Anchor>
 					<Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT">
-						<Offset><AbsDimension x="-5" y="-24"/></Offset>
+						<Offset><AbsDimension x="0 " y="-18"/></Offset>
 					</Anchor>
 				</Anchors>
 			</FontString>
@@ -82,10 +82,10 @@ Basic controls for use with RDX windows.
 			</Scripts>
 		</Button>
 		<Button name="$parentClose" inherits="RDXXBtnT">
-			<Size><AbsDimension x="12" y="12"/></Size>
+			<Size><AbsDimension x="9" y="9"/></Size>
 			<Anchors>
 				<Anchor point="TOPRIGHT">
-					<Offset><AbsDimension x="-7" y="-6"/></Offset>
+					<Offset><AbsDimension x="0" y="0"/></Offset>
 				</Anchor>
 			</Anchors>
 		</Button>

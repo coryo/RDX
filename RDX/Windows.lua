@@ -70,7 +70,7 @@ RDX.Window.Repurpose[1] = function(self)
 	self.icon:Hide();
 	-- Reanchor text; pin it to the left
 	self.text:ClearAllPoints();
-	self.text:SetPoint("TOPLEFT", self, "TOPLEFT", 5, -4);
+	self.text:SetPoint("TOPLEFT", self, "TOPLEFT", 5, -2);
 	self.text:SetWidth(dx - 10); self.text:SetHeight(16);
 	-- Hide all buttons
 	self.btnClose:Hide(); self.btnFilter:Hide();
@@ -123,17 +123,17 @@ RDX.Window.Repurpose[4] = function(self)
 	self.icon:Hide();
 	-- Reanchor text; pin it to the left
 	self.text:ClearAllPoints();
-	self.text:SetPoint("TOPLEFT", self, "TOPLEFT", 5, -4);
-	self.text:SetWidth(dx - 22); self.text:SetHeight(16);
+	self.text:SetPoint("TOPLEFT", self, "TOPLEFT", 2, -2);
+	self.text:SetWidth(dx - 22); self.text:SetHeight(14);
 	-- Show close button only
 	self.btnClose:ClearAllPoints();
-	self.btnClose:SetPoint("TOPRIGHT", self, "TOPRIGHT", -7, -6);
+	self.btnClose:SetPoint("TOPRIGHT", self, "TOPRIGHT", -2, -2);
 	self.btnClose:Show(); self.btnClose:SetFrameLevel(3);
 	self.btnFilter:Hide();
 	-- Manage interaction btn
 	self.btnI:ClearAllPoints();
 	self.btnI:SetPoint("TOPLEFT", self, "TOPLEFT");
-	self.btnI:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -19, -21);
+	self.btnI:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", -19, -16);
 end
 -- Purpose 5: No title icon, filter btn only
 RDX.Window.Repurpose[5] = function(self)
