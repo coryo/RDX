@@ -395,7 +395,13 @@ function RDX.Unit:IsFollowDistance()
 	return CheckInteractDistance(self.uid, 4);
 end
 function RDX.Unit:InRange(yards)
-	if self.range <= yards then return true else return false end;
+	if self.nid == RDX.GetPlayerUnit().nid then return true end
+	
+	if yards == 28 then
+		return CheckInteractDistance(self.uid, 4)
+	end
+
+	return self.range <= yards
 end
 ---- MP data
 function RDX.Unit:Mana()
@@ -841,8 +847,10 @@ function RDX.DB.OnUnitRange(uid, range, lastseen, confirmed)
 			unit.range = range;
 			RDX.SigUnitRange:Raise(n, unit);
 		else
-			unit.range = 100;
-			RDX.SigUnitRange:Raise(n, unit);
+			if GetTime() - lastseen > 2 then
+				unit.range = 100;
+				RDX.SigUnitRange:Raise(n, unit);
+			end
 		end
 	end
 end
