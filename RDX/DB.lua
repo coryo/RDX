@@ -395,8 +395,6 @@ function RDX.Unit:IsFollowDistance()
 	return CheckInteractDistance(self.uid, 4);
 end
 function RDX.Unit:InRange(yards)
-	if self.nid == RDX.GetPlayerUnit().nid then return true end
-	
 	if yards == 28 then
 		return CheckInteractDistance(self.uid, 4)
 	end
