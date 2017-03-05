@@ -10,7 +10,7 @@ New Features
  * Range filtering. Specify any range in yards to include or exclude from a window.
 
 
-![rdx2](https://cloud.githubusercontent.com/assets/678207/23046317/da36d41c-f476-11e6-927f-92b7baad05a4.png)
+![rdx3](https://cloud.githubusercontent.com/assets/678207/23583298/8bb52754-010e-11e7-9325-aabfe090c034.png)
 
 
 ```
