@@ -749,6 +749,12 @@ function RDXM.Windows.ToggleShow(name)
 	RDXM.Windows.SaveAllLayouts();
 end
 
+function RDXMWShow(...)
+	for i, v in ipairs(arg) do
+		RDXM.Windows.ToggleShow(tostring(v))
+	end
+end
+
 -- New window creation
 function RDXM.Windows.NewWindow()
 	-- Pop up a name prompt
