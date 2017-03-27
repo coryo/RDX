@@ -24,6 +24,7 @@
 <Script file="Alerts.lua"/>
 <Include file="Alerts.xml"/>
 <Script file="Smartcast.lua"/>
+<Script file="Macros.lua"/>
 <Script file="Interactors.lua"/>
 <Include file="Interactors.xml"/>
 <!--<Script file="Missing.lua"/>-->

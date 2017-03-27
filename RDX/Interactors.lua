@@ -193,3 +193,29 @@ RDX.RegisterInteractor({
 		end
 	end
 });
+
+
+-- "Macro" interactor
+function RDX.Interactors.MacroConfigText(cfg)
+	if cfg.macroName then return cfg.macroName; else return "(Invalid macro.)"; end
+end
+function RDX.Interactors.MacroConfigDropdown(cfg)
+	return RDX.Macros.GetList();
+end
+function RDX.Interactors.MacroConfigDropdownSelect(cfg, sel)
+	cfg.macroName = sel.name;
+	cfg.macroID = sel.id
+end
+RDX.RegisterInteractor({
+	id=5,
+	name="Macro",
+	type="targeted", configurable = true,
+	InitConfig = function() end,
+	GetConfigText = RDX.Interactors.MacroConfigText,
+	BuildConfigDropdown = RDX.Interactors.MacroConfigDropdown,
+	SelectConfigDropdown = RDX.Interactors.MacroConfigDropdownSelect,
+	Go = function(unit, cfg)
+		TargetUnit(unit.uid);
+		RDX.Macros.RunMacro(cfg.macroID);
+	end
+});
