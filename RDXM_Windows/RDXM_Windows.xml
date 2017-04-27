@@ -7,7 +7,7 @@ Custom window support for RDX.
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
 <!-- WINDOW DESCRIPTOR CONFIG DLG -->
 <Frame name="RDXWindowDescConfig" inherits="VFLTitledWinT" hidden="true" parent="UIParent">
-	<Size><AbsDimension x="490" y="462"/></Size>
+	<Size><AbsDimension x="490" y="478"/></Size>
 	<Anchors><Anchor point="CENTER"/></Anchors>
 	<Frames>
 		<!-- Filter -->
@@ -38,7 +38,7 @@ Custom window support for RDX.
 		<!-- End filter -->
 		<!-- Sort -->
 		<Frame name="$parentSortGB" inherits="VFLGroupT">
-			<Size><AbsDimension x="130" y="131"/></Size>
+			<Size><AbsDimension x="130" y="147"/></Size>
 			<Anchors>
 				<Anchor point="TOPLEFT" relativeTo="$parentFilterGB" relativePoint="BOTTOMLEFT"/>
 			</Anchors>
@@ -101,11 +101,21 @@ Custom window support for RDX.
 			<Scripts>
 				<OnShow>this:Setup(RDXWindowDescConfig.RGSort, "%HPINC");</OnShow>
 			</Scripts>
-		</Frame>		
+		</Frame>
+		<Frame name="$parentSortRB6" inherits="VFLRadioT" id="6">
+			<Size><AbsDimension x="65" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOP" relativeTo="$parentSortRB5" relativePoint="BOTTOM">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup(RDXWindowDescConfig.RGSort, "MissingHP");</OnShow>
+			</Scripts>
+		</Frame>			
 		<Frame name="$parentSortReverse" inherits="VFLChkT">
 			<Size><AbsDimension x="200" y="16"/></Size>
 			<Anchors>
-				<Anchor point="TOPLEFT" relativeTo="$parentSortRB5" relativePoint="BOTTOMLEFT"/>
+				<Anchor point="TOPLEFT" relativeTo="$parentSortRB6" relativePoint="BOTTOMLEFT"/>
 			</Anchors>
 			<Scripts>
 				<OnShow>this:Setup("Reverse sort");</OnShow>

@@ -115,7 +115,7 @@ function RDXM.Window:SetDescriptor(desc)
 	self.filterFunc = RDX.MakeFilterFromDescriptor(desc.filterDesc);
 	-- Load sort metadata
 	self.sortSortsHP = nil; self.sortSortsMana = nil; self.sortFunc = nil; self.sortDeadBottom = nil; self.sortSortsHPInc = nil;
-	if(desc.cfg.sort == 2) then -- Somewhat kludgy; map sort functions
+	if(desc.cfg.sort == 2 or desc.cfg.sort == 6) then -- Somewhat kludgy; map sort functions
 		self.sortSortsHP = true;
 	elseif(desc.cfg.sort == 3) then
 		self.sortSortsMana = true;

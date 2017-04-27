@@ -291,23 +291,31 @@ end
 --	end
 
 function RDXM.WindowDesc:GenSortFuncBody()
-	local statistic,cfg,str = "FracHealth",self.cfg,"";
-	-- cfg.sort 1 = None 2 = %HP 3= %Mana 4= Alpha
-	if(cfg.sort == 4) then
-		statistic="GetProperName";
-	else
-		--str = str .. self:GenSortFuncLDSection();
-	end
-	if(cfg.sort==3) then statistic="FracMana"; end
-	-- cfg.reverse TRUE = reversed
+	local statistic, cfg, str = "FracHealth", self.cfg, "";
 	local direction = "<";
-	if cfg.reverse then direction = ">"; end
+	-- cfg.sort 1 = None 2 = %HP 3= %Mana 4= Alpha
+	if cfg.sort == 3 then
+		statistic = "FracMana";
+	elseif cfg.sort == 4 then
+		statistic = "GetProperName";		
+	elseif cfg.sort == 5 then
+		statistic = "FracHealthWithIncHeals";
+	elseif cfg.sort == 6 then
+		statistic = "MissingHealth";
+		direction = ">";
+	end;
 
-	if (cfg.sort==5) then statistic="FracHealthWithIncHeals"; end
-	
-	str = str .. "return (u1:"..statistic.."() " .. direction .. " u2:"..statistic.."());";
-	
+	-- cfg.reverse TRUE = reversed
+	if cfg.reverse then
+		if direction == "<" then
+			direction = ">";
+		else
+			direction = "<";
+		end;
+	end;
 
+	str = str .. "return (u1:" .. statistic .. "() " .. direction .. " u2:" .. statistic .. "());";
+	
 	-- If not already sorting alphabetically, use it as a secondary sort
 	if cfg.sort ~= 4 then 
 		str = self:GenSortFuncLDSection() .. "if (u1:"..statistic.."() ~= u2:"..statistic.."()) then "..str.." else return (u1:GetProperName() < u2:GetProperName()); end"
