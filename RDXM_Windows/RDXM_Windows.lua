@@ -755,6 +755,19 @@ function RDXMWShow(...)
 	end
 end
 
+
+function RDXMWTarget(window, position)
+	if not RDXM.Windows.IsShown(window) then return false; end;
+	local w = RDXM.Windows.nwt[window];
+	if not w.units then return false; end;
+	local unit = w.units[position]
+	if unit then
+		TargetUnit(unit.uid)
+		return true
+	end
+	return false
+end
+
 -- New window creation
 function RDXM.Windows.NewWindow()
 	-- Pop up a name prompt
