@@ -1,6 +1,6 @@
 --[[
 Name: HealComm-1.0
-Revision: $Rev: 11500 $
+Revision: $Rev: 11620 $
 Author(s): aviana
 Website: https://github.com/Aviana
 Description: A library to provide communication of heals and resurrections.
@@ -8,7 +8,7 @@ Dependencies: AceLibrary, AceEvent-2.0, RosterLib-2.0
 ]]
 
 local MAJOR_VERSION = "HealComm-1.0"
-local MINOR_VERSION = "$Revision: 11500 $"
+local MINOR_VERSION = "$Revision: 11620 $"
 
 if not AceLibrary then error(MAJOR_VERSION .. " requires AceLibrary") end
 if not AceLibrary:IsNewVersion(MAJOR_VERSION, MINOR_VERSION) then return end
@@ -146,9 +146,26 @@ elseif GetLocale() == "zhCN" then
 			return table.BZ[key]
 		end
 	end})
+	L["Curse of the Deadwood"] = "死木诅咒"
+	L["Veil of Shadow"] = "暗影之雾"
+	L["Gehennas' Curse"] = "基赫纳斯的诅咒"
+	L["Mortal Wound"] = "重伤"
+	L["Necrotic Poison"] = "死灵之毒"
+	L["Necrotic Aura"] = "死灵光环"
+	L["The Furious Storm"] = "狂野风暴"
+	L["Holy Power"] = "神圣能量"
+	L["Prayer Beads Blessing"] = "祈祷之珠"
+	L["Chromatic Infusion"] = "多彩能量"
+	L["Ascendance"] = "优越"
+	L["Ephemeral Power"] = "短暂强力"
+	L["Unstable Power"] = "能量无常"
+	L["Healing of the Ages"] = "远古治疗	"
+	L["Essence of Sapphiron"] = "萨菲隆的精华"
+	L["The Eye of the Dead"] = "亡者之眼"
+	L["Crusader's Wrath"] = "十字军之怒"
+	L["Nature Aligned"] = "自然之盟"
 	L["Libram of Divinity"] = "神性圣契"
 	L["Libram of Light"] = "光明圣契"
-	L["Necrotic Aura"] = "死灵光环"  -- 这个技能不知道是否存在
 	L["Set: Increases the duration of your Rejuvenation spell by 3 sec."] = "套装：使你的回春术的持续时间延长3秒。" -- T2
 	L["Set: Increases the duration of your Renew spell by 3 sec."] = "套装：使你的恢复术的持续时间延长3秒。" -- T2.5
 	L["Totem of Life"] = "生命图腾"
@@ -980,7 +997,8 @@ HealComm.Debuffs = {
 	
 local function getSetBonus()
 	healcommTip:SetInventoryItem("player", 1)
-	local text = getglobal("healcommTipTextLeft"..healcommTip:NumLines()):GetText()
+	local text = "healcommTipTextLeft"..(healcommTip:NumLines() or 1)
+	text = getglobal(text):GetText()
 	if text == L["Set: Increases the duration of your Rejuvenation spell by 3 sec."] or text == L["Set: Increases the duration of your Renew spell by 3 sec."] then
 		return true
 	else
@@ -991,7 +1009,7 @@ end
 function HealComm:GetBuffSpellPower()
 	local Spellpower = 0
 	local healmod = 1
-	for i=1, 16 do
+	for i=1, 32 do
 		local buffTexture, buffApplications = UnitBuff("player", i)
 		if not buffTexture then
 			return Spellpower, healmod
@@ -1011,7 +1029,7 @@ function HealComm:GetUnitSpellPower(unit)
 	local targetmod = 1
 	local buffTexture, buffApplications
 	local debuffTexture, debuffApplications
-	for i=1, 16 do
+	for i=1, 32 do
 		if UnitIsVisible(unit) and UnitIsConnected(unit) and UnitCanAssist("player", unit) then
 			buffTexture, buffApplications = UnitBuff(unit, i)
 			healcommTip:SetUnitBuff("target", i)
@@ -1525,7 +1543,7 @@ function HealComm:OnMouseDown(object)
 			unit = roster:GetUnitIDFromName(name)
 		end
 	end
-	if ( self.CurrentSpellName and SpellIsTargeting() ) then
+	if ( self.CurrentSpellName and SpellIsTargeting() and UnitExists(unit) ) then
 		self:ProcessSpellCast(unit)
 	end
 	if ( self.hooks[object]["OnMouseDown"] ) then
