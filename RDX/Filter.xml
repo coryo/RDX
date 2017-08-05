@@ -389,7 +389,7 @@ Filter configuration screen
 		<!-- END FILTER BY HP/MANA -->
 		<!-- OTHER FILTERS -->
 		<Frame name="$parentOtherGB" inherits="VFLGroupT">
-			<Size><AbsDimension x="350" y="90"/></Size>
+			<Size><AbsDimension x="350" y="106"/></Size>
 			<Anchors>
 				<Anchor point="TOPLEFT" relativeTo="$parentList" relativePoint="BOTTOMLEFT">
 				</Anchor>
@@ -545,6 +545,50 @@ Filter configuration screen
 			</Anchors>
 		</EditBox>
 
+
+		<Frame name="$parentAggroLbl" inherits="VFLStaticT">
+			<Size><AbsDimension x="80" y="16"/></Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentYardsLbl" relativePoint="BOTTOMLEFT">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup("Aggro:");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentAggroRB1" inherits="VFLRadioT" id="1">
+			<Size><AbsDimension x="80" y="16"/></Size>
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentAggroLbl" relativePoint="RIGHT">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup(RDXFilterConfig.RGAggro, "Don't filter");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentAggroRB2" inherits="VFLRadioT" id="2">
+			<Size><AbsDimension x="80" y="16"/></Size>
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentAggroRB1" relativePoint="RIGHT">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup(RDXFilterConfig.RGAggro, "Filter only");</OnShow>
+			</Scripts>
+		</Frame>
+		<Frame name="$parentAggroRB3" inherits="VFLRadioT" id="3">
+			<Size><AbsDimension x="80" y="16"/></Size>
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="$parentAggroRB2" relativePoint="RIGHT">
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow>this:Setup(RDXFilterConfig.RGAggro, "Filter out");</OnShow>
+			</Scripts>
+		</Frame>
+
+
+
 		<!-- END OTHER FILTERS -->
 		<!-- OK/CANCEL -->
 		<Button name="$parentCancel" inherits="VFLCancelBtnT" text="Cancel">
@@ -568,6 +612,7 @@ Filter configuration screen
 			this.RGDead = VFL.RadioGroup:new();
 			this.RGDesync = VFL.RadioGroup:new();
 			this.RGFollow = VFL.RadioGroup:new();
+			this.RGAggro = VFL.RadioGroup:new();
 			getglobal(this:GetName().."TitleBkg"):SetGradient("HORIZONTAL",0,0,0.9,0,0,0.1);
 		</OnLoad>
 	</Scripts>

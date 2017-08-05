@@ -11,6 +11,7 @@ function RDXAce:OnInitialize()
 	VFL.debug("RDX Ace: OnInitialize()")
 	self.HealComm = AceLibrary("HealComm-1.0")
 	self.NotProximity = AceLibrary("NotProximityLib-1.0")
+	self.Banzai = AceLibrary("Banzai-1.0")
 end
 
 VFL.debug("[RDX5] Loading Root.lua", 2);

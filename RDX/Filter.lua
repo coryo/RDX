@@ -67,7 +67,7 @@ function RDX.FilterDesc:SetDefaults()
 	cfg.list = nil;
 	cfg.cg = false;
 	cfg.hm = false;
-	cfg.dead = 1; cfg.desync = 1; cfg.followdistance = 1;
+	cfg.dead = 1; cfg.desync = 1; cfg.followdistance = 1; cfg.aggro = 1;
 	cfg.yards = 40;
 end
 
@@ -133,6 +133,7 @@ function RDX.FilterDesc:ShowConfigDialog(okCallback, cancelCallback)
 	dlg.RGDead:SelectByID(cfg.dead);
 	dlg.RGDesync:SelectByID(cfg.desync);
 	dlg.RGFollow:SelectByID(cfg.followdistance);
+	dlg.RGAggro:SelectByID(cfg.aggro)
 	-- Bind OK/Cancel/esch
 	getglobal(dn.."Cancel").OnClick = function() 
 		dlg:Hide();
@@ -206,6 +207,7 @@ function RDX.FilterDesc:ReadConfigDialog()
 	cfg.desync = dlg.RGDesync:Get();
 	cfg.followdistance = dlg.RGFollow:Get();
 	cfg.yards = getglobal(dn.."Yards"):GetNumber();
+	cfg.aggro = dlg.RGAggro:Get();
 end
 
 --------------------------------------
@@ -225,6 +227,9 @@ function RDX.FilterDesc:FiltersDead()
 end
 function RDX.FilterDesc:FiltersFollowDistance()
 	return self.data.followdistance;
+end
+function RDX.FilterDesc:FiltersAggro()
+	return self.data.aggro;
 end
 
 --------------------------------------
@@ -288,6 +293,11 @@ function RDX.FilterDesc:GenFilterBody()
 		body = body .. "if not unit:InRange(".. (cfg.yards or "28") ..") then return nil; end "
 	elseif cfg.followdistance == 3 then
 		body = body .. "if unit:InRange(".. (cfg.yards or "28") ..") then return nil; end "
+	end
+	if cfg.aggro == 2 then
+		body = body .. "if not unit:HasAggro() then return nil; end "
+	elseif cfg.aggro == 3 then
+		body = body .. "if unit:HasAggro() then return nil; end "
 	end
 	-- If filter by hp/mana...
 	if cfg.hm then

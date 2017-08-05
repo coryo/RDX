@@ -325,6 +325,7 @@ function RDX.Unit:new(n)
 	x.lastContact = 0;
 	x.incheal = 0;
 	x.range = 0;
+	x.aggro = false;
 	-- Generate flagsets; link them with the flag multiplexers.
 	x.flagsets = {};
 	for i=1,4 do x.flagsets[i] = RDX.FlagSet:new(RDX.fm[i], x); end
@@ -361,6 +362,10 @@ end
 
 function RDX.Unit:IsLeader()
 	return (self.ldr > 0);
+end
+
+function RDX.Unit:HasAggro()
+	return self.aggro;
 end
 
 ---- HP data
@@ -808,6 +813,7 @@ RDX.SigUnitHealth = VFL.Signal:new();
 RDX.SigUnitMana = VFL.Signal:new();
 RDX.SigUnitIncHeal = VFL.Signal:new();
 RDX.SigUnitRange = VFL.Signal:new();
+RDX.SigUnitAggro = VFL.Signal:new();
 
 function RDX.DB.OnUnitHealth(uid)
 	if not IsRaidUnit(uid) then return; end
@@ -826,6 +832,10 @@ function RDX.DB.OnUnitIncHeal(target)
 	local unit = RDX.GetUnitByName(string.lower(target))
 	if not unit or not IsRaidUnit(unit.uid) then return; end
 	local n = UIDtoN(unit.uid);
+
+	local healvalue = RDXAce.HealComm:getHeal(target)
+	unit.incheal = healvalue
+
 	RDX.SigUnitIncHeal:Raise(n, unit);
 end
 
@@ -851,6 +861,14 @@ function RDX.DB.OnUnitRange(uid, range, lastseen, confirmed)
 			end
 		end
 	end
+end
+
+function RDX.DB.OnUnitAggro(uid)
+	if not IsRaidUnit(uid) then return; end
+	local n = UIDtoN(uid);
+	local unit = RDX.GetUnitByNumber(n)
+	unit.aggro = RDXAce.Banzai:GetUnitAggroByUnitId(uid)
+	RDX.SigUnitAggro:Raise(n, unit);
 end
 
 ------------------------------------------------------------
@@ -882,4 +900,6 @@ function RDX.DB.Init()
 	RDXAce:RegisterEvent("HealComm_Healupdate", RDX.DB.OnUnitIncHeal);
 	RDXAce:RegisterEvent("NotProximityLib_RangeUpdate", RDX.DB.OnUnitRange);
 	RDXAce:RegisterEvent("NotProximityLib_WorldRangeUpdate", RDX.DB.OnUnitRange);
+	RDXAce:RegisterEvent("Banzai_UnitGainedAggro", RDX.DB.OnUnitAggro);
+	RDXAce:RegisterEvent("Banzai_UnitLostAggro", RDX.DB.OnUnitAggro);
 end

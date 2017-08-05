@@ -112,6 +112,7 @@ function RDXM.Window:SetDescriptor(desc)
 	self.filterFiltersGC = desc.filterDesc:FiltersGroupsAndClasses();
 	self.filterFiltersDead = desc.filterDesc:FiltersDead();
 	self.filterFiltersFollowDistance = desc.filterDesc:FiltersFollowDistance();
+	self.filterFiltersAggro = desc.filterDesc:FiltersAggro();
 	self.filterFunc = RDX.MakeFilterFromDescriptor(desc.filterDesc);
 	-- Load sort metadata
 	self.sortSortsHP = nil; self.sortSortsMana = nil; self.sortFunc = nil; self.sortDeadBottom = nil; self.sortSortsHPInc = nil;
@@ -213,6 +214,9 @@ function RDXM.Window:BindEvents()
 		RDX.SigUnitFollowDistance:Connect(self, RDXM.Window.OnUnitFollowDistanceChange);
 		RDX.SigUnitRange:Connect(self, RDXM.Window.OnUnitRange);
 	end
+	if(self.filterFiltersAggro) then
+		RDX.SigUnitAggro:Connect(self, RDXM.Window.OnUnitAggro);
+	end
 	RDX.SigUnitIdentitiesChanged:Connect(self, RDXM.Window.OnIdentityChange);
 end
 
@@ -224,6 +228,7 @@ function RDXM.Window:UnbindEvents()
 	RDX.SigUnitIncHeal:DisconnectObject(self);
 	RDX.SigUnitMana:DisconnectObject(self);
 	RDX.SigUnitRange:DisconnectObject(self);
+	RDX.SigUnitAggro:DisconnectObject(self);
 end
 
 --------------------------------
@@ -249,10 +254,6 @@ function RDXM.Window:OnUnitHealth(un, u)
 end
 
 function RDXM.Window:OnUnitIncHeal(un, u)
-	-- If the unit's not a member of our set now, we need do nothing.
-	if not self.set:GetMember(un) then return; end
-	local healvalue = RDXAce.HealComm:getHeal(u:GetProperName())
-	u.incheal = healvalue
 	if(self.sortSortsHPInc) then
 		self:TriggerUpdate(2);
 	else
@@ -261,13 +262,26 @@ function RDXM.Window:OnUnitIncHeal(un, u)
 end
 
 function RDXM.Window:OnUnitRange(un, u)
-	if not self then return end
+
 	if (self.filterFiltersFollowDistance) then
 		-- Reexamine the unit
 		self:Examine(un, u);
 		-- If we're dirty, trip the dirty-level update
 		if self.set:IsDirty() then self:TriggerUpdate(3); return; end
 	end
+
+	if not self.set:GetMember(un) then return; end
+	self:TriggerUpdate(1);
+end
+
+function RDXM.Window:OnUnitAggro(un, u)
+	if (self.filterFiltersAggro) then
+		self:Examine(un, u);
+		if self.set:IsDirty() then self:TriggerUpdate(3); return; end
+	end
+
+	if not self.set:GetMember(un) then return; end
+	self:TriggerUpdate(1);
 end
 
 -- Respond to a UNIT_MANA event
